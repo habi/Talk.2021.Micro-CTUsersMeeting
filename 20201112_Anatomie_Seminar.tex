@@ -4,60 +4,61 @@
 \documentclass[aspectratio=169]{beamer}
 \usetheme{UniBern}
 
-\title{X-ray microtomography}
+\title{How to study the internals of +100 human teeth with X-ray microtomography}
 \author{David Haberthür}
-\date{December 20, 2019 | \href{https://ilias.unibe.ch/ilias.php?ref_id=1555744&cmd=infoScreen&cmdClass=ilrepositorygui&cmdNode=y2&baseClass=ilrepositorygui}{9256-HS2019-0: Advanced Microscopy}}
+\date{November 12, 2020 | Internal seminar at the Institute of Anatomy}
 
 %\includeonlyframes{current}
 %then....
 %\begin{frame}[label=current]
 %\end{frame}
 
-\usepackage[backend=biber,
-	style=numeric,
-	url=false,
-	isbn=true,
-	maxnames=1,
-	sorting=none]{biblatex}
-	\addbibresource{../../../Documents/library.bib}
-\usepackage{standalone}
-\usepackage{tikz}
-	\usetikzlibrary{spy}
-	%\usetikzlibrary{external}
-	%\tikzexternalize[prefix=tikz-externals/] % externalize tikz figures into pdf frames, speeds up compilation
-	\tikzset{shadowed/.style={preaction={transform canvas={shift={(1pt,-1pt)}},draw=ubRed}}}
-\usepackage{shadowtext}  % for the shadowed scalebar
-	\shadowoffset{1pt}
-	\shadowcolor{ubRed}
-\usepackage{pgfplots}
-	\pgfplotsset{compat=newest}
 \usepackage[detect-all=true,
 	range-phrase=--,
 	range-units=single,
 	binary-units=true,
 	per-mode=symbol,
 	per-symbol=/]{siunitx}
-\usepackage{microtype}
-\usepackage[absolute,overlay]{textpos} %for the \source{} command
-\usepackage[missing=master]{gitinfo2} % GitHub Actions don't pull in the commit hash, so we just show `Master'
 \usepackage{xspace}
+\usepackage[missing=main]{gitinfo2} % GitHub Actions don't pull in the commit hash, so we just show `Master'
+\usepackage[backend=biber,
+	style=numeric,
+	url=false,
+	maxnames=1,
+	sorting=none
+	]{biblatex}
+\addbibresource{../../Documents/library.bib}
 \usepackage{ccicons}
-\usepackage[version=4]{mhchem}
 \usepackage{animate}
+\usepackage{tikz}
+	\usetikzlibrary{spy}
+	\tikzset{shadowed/.style={preaction={transform canvas={shift={(1pt,-1pt)}},draw=ubRed}}}
+\usepackage{shadowtext}  % for the shadowed scalebar
+	\shadowoffset{1pt}
+	\shadowcolor{ubRed}
+\usepackage[absolute,overlay]{textpos} %for the \source{} command	
 \usepackage{fontawesome5}
-\usepackage{csquotes}
-\usepackage{listings}
-	\lstset{frame=single,
+\usepackage{standalone}
+\usepackage[version=4]{mhchem}
+
+%\usepackage{pgfplots}
+%	\pgfplotsset{compat=newest}
+	
+\usepackage{microtype}
+
+
+%\usepackage{csquotes}
+%\usepackage{listings}
+%	\lstset{frame=single,
 		%backgroundcolor = \color{lightgray},
-		basicstyle=\tiny\ttfamily
-		}
-\usepackage{pgfplotstable}
-\usepackage{booktabs}
-\usepackage{colortbl}
-\usepackage{lipsum} %for alignment testing
+%		basicstyle=\tiny\ttfamily
+%		}
+%\usepackage{pgfplotstable}
+%\usepackage{booktabs}
+%\usepackage{colortbl}
 
 % Some often used abbreviations/commands
-\newcommand{\everyframe}{1} % use only every nth frame for the animations
+\newcommand{\everyframe}{111} % use only every nth frame for the animations
 \newcommand{\imwidth}{\linewidth}% set global image width
 \newcommand{\imheight}{0.618\paperheight}% set global image height
 \newlength\imagewidth% needed for scalebars
@@ -69,46 +70,6 @@
 % Define complementary colors to ubRed
 \definecolor{ubRedComplementary1}{HTML}{00a1e6}
 \definecolor{ubRedComplementary2}{HTML}{00e645}
-
-% change tikz font to slide font
-% https://tex.stackexchange.com/a/33329/828
-\usepackage[eulergreek]{sansmath}
-	\pgfplotsset{tick label style = {font=\sansmath\sffamily},
-		every axis label = {font=\sansmath\sffamily},
-		legend style = {font=\sansmath\sffamily},
-		label style = {font=\sansmath\sffamily}
-		}
-
-% Globally thicker lines in with tikz
-% https://tex.stackexchange.com/a/206769/828
-\tikzset{every picture/.style={thick}}
-
-% And thicker plots by default
-% https://tex.stackexchange.com/a/235439/828
-% https://tex.stackexchange.com/q/262486/828
-\pgfplotsset{%
-	every axis plot/.append style={thick},
-	every axis/.append style={thick}
-	every axis plot post/.append style={every mark/.append style={thick}}
-	}
-
-% stripped-down plot styling
-% Based on https://tex.stackexchange.com/a/155210/828
-% And then start each plot with `\begin{axis}[tuftelike,'
-\pgfkeys{%
-	/pgfplots/simplified/.style={%
-		tick style={major tick length=0pt},
-%		separate axis lines,
-%		axis x line*=bottom,
-%		axis x line shift=10pt,
-%		xlabel shift=1pt,
-%		axis y line*=left,
-%		axis y line shift=10pt,
-		ymajorgrids=true,
-		axis line style={draw=none},
-%		ylabel shift=1pt
-		}
-	}
 
 % Acknowledge images just below them
 % Based on https://tex.stackexchange.com/a/282637/828
@@ -137,16 +98,6 @@
 		}%
 	}%
 
-% Define us our custom footer
-%\defbeamertemplate{footline}{unibe}{%
-%	\hspace*{\fill}%
-%	v. \href{https://github.com/habi/lecture.microtomography/commit/\gitHash}{\gitAbbrevHash}\xspace|\xspace%
-%	p.\xspace\insertframenumber/\inserttotalframenumber%
-%	\hspace*{4ex}%
-%	\vspace{2pt}%
-%}
-%\setbeamertemplate{footline}[unibe]
-
 % Define us a custom footer *with* progress bar, based on https://tex.stackexchange.com/a/59749/828
 \makeatletter
 \def\progressbar@progressbar{} % the progress bar
@@ -169,7 +120,7 @@
 		\draw[ubGrey] (0,0) -- ++ (\progressbar@pbwd,0);
 		\filldraw[ubGrey] (\the\dimexpr\progressbar@tmpdim-\progressbar@rcircle\relax,.5\progressbar@pbht) circle (\progressbar@rcircle);
 	\end{tikzpicture}%
-	v. \href{https://github.com/habi/lecture.microtomography/commit/\gitHash}{\gitAbbrevHash}\xspace|\xspace%
+	v. \href{https://github.com/habi/20201112_Anatomie_Seminar/commit/\gitHash}{\gitAbbrevHash}\xspace|\xspace%
 	p.\xspace\insertframenumber/\inserttotalframenumber%
 %	\hspace*{4ex}%
 	\vspace{0.7ex}
@@ -200,37 +151,6 @@
 \renewcommand{\bibopenparen}{\addcomma\addspace}
 \renewcommand{\bibcloseparen}{\addcomma\addspace}
 
-% Redefine \footcite based on https://tex.stackexchange.com/a/453528/828
-\DeclareCiteCommand{\footcite}[\mkbibfootnote]{%
-	\usebibmacro{prenote}}{%
-		\printnames[family-given]{labelname}%
-		\newunit%
-		\printfield{doi}%
-		\newunit%
-		\printlabeldateextra%
-	}{\addsemicolon\space}{%
-		\usebibmacro{postnote}%
-	}%
-
-% References as footnotes at the bottom of the slides
-% https://tex.stackexchange.com/a/368760/828
-\makeatletter
-\renewcommand\@makefnmark{\xspace\hbox{\usebeamercolor[fg]{footnote mark}\usebeamerfont*{footnote mark}[\@thefnmark]}}
-\renewcommand\@makefntext[1]{\tiny{\usebeamercolor[fg]{footnote mark}\usebeamerfont*{footnote mark}[\@thefnmark]}\enspace\usebeamerfont*{footnote} #1}
-\makeatother
-
-% Show current section at begin of sections, but only in presentation mode
-\mode<beamer>{%
-	\AtBeginSection[]{%
-		\begin{frame}{Contents}
-			\tableofcontents[currentsection,currentsubsection,hideothersubsections]
-		\end{frame}
-	}
-}
-
-% Slide transiton
-%\addtobeamertemplate{background canvas}{\transfade[duration=0.5]}{}
-
 % open in fullscreen
 \hypersetup{pdfpagemode=FullScreen}
 
@@ -248,38 +168,21 @@
 	\end{frame}%
 }
 
-%% Alignment frames to test the ugly text-block-movement hack above
-%\begin{frame}[label=current]{Alignment frame}
-%	\begin{tikzpicture}%
-%		\def\cut{2}%
-%		\draw [|-|,ultra thick] (0,\cut) -- (0,\textheight-\cut);%
-%		\draw [<->,ultra thick] (0.5\textwidth,\cut) -- (0.5\textwidth,\textheight-\cut);%
-%		\draw [|-|,ultra thick] (\textwidth,\cut) -- (\textwidth,\textheight-\cut);%
-%	\end{tikzpicture}%
-%\end{frame}
-%
-%\begin{frame}[allowframebreaks,label=current]{Alignment frame II}
-%	\lipsum[1-3]
-%\end{frame}
-
-\begin{frame}{Hello!}
+\begin{frame}{Grüessech!}
 	\begin{itemize}
 		\item Office \href{http://osm.org/go/0CZwlGp3A?m}{B311} | \href{mailto:haberthuer@ana.unibe.ch?subject=Feedback\%20from\%20the\%20(micro)-tomography\%20lecture}{haberthuer@ana.unibe.ch}
-		\item Master in Physics
-		\item \href{https://boris.unibe.ch/2619/}{PhD in high resolution imaging of the lung} at the Institute of Anatomy
-		\item Post-Doc
-		\begin{itemize}
-			\item \href{https://www.psi.ch/sls/tomcat/}{TOMCAT}, \href{https://www.psi.ch/sls/}{Swiss Light Source}, \href{https://www.psi.ch/}{Paul Scherrer Institute}
-			\item \uct-group, \href{https://ana.unibe.ch}{Institute of Anatomy} (Ruslan Hlushchuk, David Haberthür, Oleksiy-Zakhar Khoma, Fluri Wieland, Carlos Correa Shokiche)
-		\end{itemize}
-		\item Biomedical research
+		\item Physicist by trade with a \href{https://boris.unibe.ch/2619/}{PhD in high resolution imaging of the lung} at the Institute of Anatomy
+		\item Post-Doc I: \href{https://www.psi.ch/sls/tomcat/}{TOMCAT}, \href{https://www.psi.ch/sls/}{Swiss Light Source}, \href{https://www.psi.ch/}{Paul Scherrer Institute}
+		\item Post-Doc II: \uct-group, \href{https://ana.unibe.ch}{Institute of Anatomy} (Ruslan Hlushchuk, David Haberthür and Oleksiy-Zakhar Khoma)
+		\item Biomedical imaging and research
 		\begin{itemize}
 			\item microangioCT~\cite{Hlushchuk2018}: Tumor vasculature, angiogenesis in the heart, musculature and bones
-			\item Lung imaging: Tumor detection and classification
 			\item Cancer research: Melanoma
-			\item Physiology: Zebrafish musculature and gills~\cite{Messerli2019}
-			\item SkyScan 1172 \& 1272
+			\item Physiology: Zebrafish musculature and gills~\cite{MesserliAaldijk2020}			
+			\item Lung tumor detection and classification
+			\item Computer science: Automate \emph{all} the things~\cite{Haberthur2020}
 		\end{itemize}
+	\item<1-> SkyScan 1172 \& 1272 \uncover<2->{\& 2214}							
 	\end{itemize}
 \end{frame}
 
@@ -292,8 +195,8 @@
 	\begin{columns}
 		\begin{column}{0.4\linewidth}
 			\begin{itemize}
-				\item<1-|handout:1-> Medical research
-				\item<1-|handout:1-> Non-destructive insights into the samples
+				\item<1-|handout:1->Medical research
+				\item<1-|handout:1->Non-destructive insights into the samples
 				\item<2-|handout:1->(Small) Biological samples
 			\end{itemize}
 		\end{column}
@@ -314,29 +217,12 @@
 		\end{column}
 	\end{columns}
 \end{frame}
-
+	
 \section{Imaging}
-\begin{frame}{Wavelength \& Scale}
+\begin{frame}{Scale}
 	\centering
-	\only<1|handout:1>{%
-		\includegraphics[height=\imheight]{./images/2000px-Electromagnetic_spectrum_with_sources}%
-		\source{w.wiki/7fz}{\ccbysa}%
-		}%
-	\only<2|handout:2>{%
-		\includegraphics[height=\imheight]{./images/AnatomySeminarYuryBelyaev-cropped}%
-		\sourcelink{www.mic.unibe.ch/organisation.php}{Yury Belyaev, MIC}{slide from internal seminar presentation}%
-		}
-\end{frame}
-
-\begin{frame}{Imaging methods}
-	\begin{itemize}
-		\item Light microscopy: see \href{https://ilias.unibe.ch/goto_ilias3_unibe_sess_1555739.html}{lecture of Nadia Mercader Huber}
-		\item X-ray imaging
-		\item Electron microscopy: see lectures
-			\href{https://ilias.unibe.ch/goto_ilias3_unibe_sess_1555738.html}{\emph{Transmission Electron Microscopy} by Dimitri Vanhecke},
-			\href{https://ilias.unibe.ch/goto_ilias3_unibe_sess_1555742.html}{\emph{Scanning Electron Microscopy} by Michael Stoffel} and
-			\href{https://ilias.unibe.ch/goto_ilias3_unibe_sess_1555743.html}{\emph{Cryoelectron Microscopy \& Serial Block Face SEM} by Ioan Iacovache}.
-	\end{itemize}
+	\includegraphics[height=\imheight]{./images/AnatomySeminarYuryBelyaev-cropped}%
+	\sourcelink{www.mic.unibe.ch/organisation.php}{Yury Belyaev, MIC}{slide from internal seminar presentation}
 \end{frame}
 
 \section{Tomography}
@@ -347,7 +233,7 @@
 		\source{youtu.be/2CWpZKuy-NE}{}%
 		}
 	\mode<handout>{%
-		\includegraphics[height=0.618\textheight]{./movies/ct-scanner/ct-scanner0001}%
+		\includegraphics[height=0.618\textheight]{./movies/ct-scanner/ct-canner0001}%
 		\source{youtu.be/2CWpZKuy-NE}{}%
 		}
 	\note{From \href{https://www.bruker.com/products/microtomography/micro-ct-for-sample-scanning/x-ray-micro-ct-microtomography.html}:
@@ -355,88 +241,6 @@
 		It really represents 3D microscopy, where very fine scale internal structure of objects is imaged non-destructively.
 		No sample preparation, no staining, no thin slicing - a single scan will image your sample's complete internal 3D structure at high resolution, plus you get your intact sample back at the end!}
 \end{frame}
-
-\subsection{History}
-\renewcommand{\imwidth}{\columnwidth}
-\begin{frame}{History}
-	\begin{columns}
-		\begin{column}{0.49\linewidth}
-			\begin{itemize}
-				\item<1-|handout:1-> Long history 
-				\begin{itemize}
-					\item<1-|handout:1-> \citeyear{Cormack1963}: \citeauthor{Cormack1963} used a collimated \ce{^{60}Co} source and a Geiger counter as a detector~\cite{Cormack1963}
-					\item<1-|handout:1-> \citeyear{Hounsfield1976a}: \citeauthor{Hounsfield1976a} worked on first clinical scanner~\cite{Hounsfield1976a}
-					\item<1-|handout:1-> Nice overview by \citeauthor{Hsieh2003}~\cite{Hsieh2003}
-				\end{itemize}
-				\item<1-|handout:1-> First, second and third generation of scanners
-			\end{itemize}
-		\end{column}
-		\begin{column}{0.49\linewidth}
-			\centering
-			\includegraphics<1|handout:1>[width=\imwidth]{./images/History_Generation1}%
-			\only<1|handout:1>{\sourcecite{Hsieh2003}{Figure 1.12}}%
-			\includegraphics<2|handout:2>[width=\imwidth]{./images/History_Generation2}%
-			\only<2|handout:2>{\sourcecite{Hsieh2003}{Figure 1.13}}%
-			\includegraphics<3|handout:3>[width=\imwidth]{./images/History_Generation3}%
-			\only<3|handout:3>{\sourcecite{Hsieh2003}{Figure 1.14}}%
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\subsection{Interaction of x-rays with matter}
-\begin{frame}{X-ray interaction}
-	\begin{itemize}
-		\item \textquote[\cite{xrayphysics}]{X-rays interact with tissue in 2 main ways: photoelectric effect and Compton scatter.
-				To a first approximation, the photoelectric effect contributes to contrast while the Compton effect contributes to noise.
-				Both contribute to dose.}
-		\begin{itemize}
-			\item Photoelectric absorption (\(\tau\)) is strongly dependent on the atomic number \(Z\) of the absorbing material: \(\tau\propto\frac{Z^4}{E^{3.5}}\)
-			\note{From \href{https://radiopaedia.org/articles/photoelectric-effect}{Radiopaedia.org}: Therefore if \(Z\) doubles, PEA will increase by a factor of 16 (\(2^4=8\)), and if \(E\) doubles PEA will reduce by a factor of 16.
-				Small changes in \(Z\) and \(E\) can therefore significantly affect PEA.
-				This has practical implications in the field of radiation protection and is the reason why materials with a high \(Z\) such as lead (\(Z= 82\)) are useful shielding materials.
-				The dependence of PEA on \(Z\) and \(E\) means that it is the major contributor to beam attenuation up to approximately 30 keV when human tissues (\(Z=7.4\)) are irradiated.
-				At beam energies above this, the Compton effect predominates.}
-			\item Compton scattering is one of the principle forms of photon interaction and is directly proportional to the (electron \& physical) density of the material.
-				It does \emph{not} depend on the atomic number: \(\lambda' - \lambda = \frac{h}{m_e c}\left(1-\cos{\theta}\right)\)
-			\note{Where \(\lambda\) is the initial wavelength, \(\lambda'\) is the wavelength after scattering, \(h\) is the Planck constant, \(m_e\) is the electron rest mass, \(c\) is the speed of light, and \(\theta\) is the scattering angle.}
-		\end{itemize}
-		\item Lowering x-ray energy increases contrast
-		\item X-ray penetration decreases exponentially with sample thickness (\cite[\ie Beer-Lamberts law]{wiki:beer-lambert} \(I(t) = I_0 \, e^{-\alpha z}\)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Composition of biological tissues}
-	Tissue: content by mass percentage
-	\centering
-	\begin{table}
-		\only<1>{%
-			\pgfplotstabletypeset[%
-				col sep=comma, % the seperator in our .csv file
-				display columns/0/.style={string type,column name={Element}},
-				% section 3.2 in pgfplotstable manual
-				every head row/.style={before row={\toprule}},
-				every row no 0/.style={after row=\midrule},
-				every last row/.style={after row=\bottomrule},
-			]{./tables/tissue-composition.csv}
-		}
-		\only<2|handout:0>{%
-			\pgfplotstabletypeset[%
-				col sep=comma, % the seperator in our .csv file
-				display columns/0/.style={string type,column name={Element}},
-				every head row/.style={before row={\toprule}},
-				every row no 0/.style={after row=\midrule},
-				every last row/.style={after row=\bottomrule},
-				% make certain cells ubRed, based on https://tex.stackexchange.com/a/296914/828
-				every row 1 column 2/.style={postproc cell content/.append style={/pgfplots/table/@cell content/.add={\cellcolor{ubRed!61.8}}{}}},
-				every row 1 column 4/.style={postproc cell content/.append style={/pgfplots/table/@cell content/.add={\cellcolor{ubRed!61.8}}{}}},
-				every row 6 column 6/.style={postproc cell content/.append style={/pgfplots/table/@cell content/.add={\cellcolor{ubRed!61.8}}{}}},
-				every row 6 column 10/.style={postproc cell content/.append style={/pgfplots/table/@cell content/.add={\cellcolor{ubRed!61.8}}{}}}
-			]{./tables/tissue-composition.csv}
-		}
-	\end{table}
-	\note{Bone, lean tissue, fat and air can be distinguished quite easily}	
-\end{frame}
-
 
 \renewcommand{\imwidth}{\columnwidth}
 \begin{frame}[label=current]{Why \uct?}
@@ -597,8 +401,8 @@
 			\centering
 			\includegraphics<1|handout:1>[height=\imheight]{./images/24324062640_751e011e1a_o}%
 			\only<1|handout:1>{\source{flic.kr/p/D4rbom}{\ccbyncsa}}
-			\includegraphics<2|handout:2>[width=\imheight]{./images/9459311320_516179207a_o}%
-			\only<2|handout:2>{\source{flic.kr/p/fpTrGu}{\ccbysa}}
+			\includegraphics<2|handout:2>[width=\imwidth]{./images/2214}%
+			\only<2|handout:2>{\source{bruker.com/skyscan2214}{}}
 			\includegraphics<3|handout:3>[width=\imwidth]{./images/1272}%
 			\only<3|handout:3>{\source{bruker.com/skyscan1272}{}}
 			\includegraphics<4|handout:4>[width=\imwidth]{./images/4563733710_f632792416_b}%
@@ -714,23 +518,8 @@
 	}
 \end{frame}
 
-\section{A scan, from \emph{getting started} to \emph{nice image}}
-\begin{frame}{Preparation}
-	\begin{itemize}
-		\item Study design
-		\item Sample preparation
-	\end{itemize}
-\end{frame}
-
+\section{A scan, from start to finish}
 \renewcommand{\imwidth}{0.49\linewidth}
-\begin{frame}{Projections}
-	\includegraphics[width=\imwidth]{./images/14_Physics_updated}%
-	\sourcelink{ilias.unibe.ch/goto\_ilias3\_unibe\_sess\_1555733.html}{\emph{Laws of Physics for Microscopists} by Michael Jaeger}{Slide 14}%
-	\hfill%
-	\includegraphics[width=\imwidth]{./images/15_Physics_updated}%
-	\sourcelink{ilias.unibe.ch/goto\_ilias3\_unibe\_sess\_1555733.html}{\emph{Laws of Physics for Microscopists} by Michael Jaeger}{Slide 15}%
-\end{frame}
-
 \begin{frame}{Projections}
 	\centering
 	% Movie frames generated with https://github.com/habi/Lecture.Microtomography/blob/master/Notebooks/FromProjectionsToReconstructions.ipynb
@@ -777,58 +566,37 @@
 
 \begin{frame}{Visualization}
 	\begin{itemize}
-		\item Based the on reconstructions, a computer synthesizes a three-dimensional view of the scanned sample
+		\item Based on the reconstructions the computer synthesizes a three-dimensional view of the scanned sample
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{What to use?}
-	\begin{itemize}
-		\item \href{http://fiji.sc/}{ImageJ/Fiji}~\cite{Schindelin2012}
-		\item Also see \href{https://ilias.unibe.ch/goto_ilias3_unibe_sess_1561468.html}{\emph{Fundamentals of Digital Image Processing} by Guillaume Witz}
-		\item Reproducible research
-		\begin{itemize}
-			\item \href{https://www.python.org/}{\faPython} in \href{https://jupyter.org/}{Jupyter}~\cite{Kluyver2016}
-			\item \href{https://git-scm.com/}{\faGit}
-			\item Script all your things!
-			\item Data repositories; sharing is caring!
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\section{Example of a full study}
+\section{What about those teeth?}
 \begin{frame}{Quantitative data}
 	\begin{itemize}
 		\item Raw numbers instead of just pretty images
 		\item Segmentation
 		\item Characterization
+		\item All automated as much as possible with Jupyter~\cite{Kluyver2016}
 	\end{itemize}
 \end{frame}
 
 \subsection{Overview}
 \begin{frame}
-	\frametitle{An example: Do gills change with training?}
-	\centering
-	% Image adapted from https://teacheratsea.files.wordpress.com/2011/07/gills-an-o2.jpg
-	\includegraphics[height=\imheight]{./images/gills-and-o2}%
-	\source{Campbell Biology}{\cite{Taylor2017}}
+	\frametitle{Internal morphology of human teeth}
+	\begin{itemize}
+		\item Raw numbers instead of just pretty images
+		\item Segmentation
+		\item Characterization
+		\item All automated as much as possible with Jupyter~\cite{Kluyver2016}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Gill anatomy}
+	\frametitle{Tooth morphology}
 	\begin{tikzpicture}[remember picture,overlay]%
 		\node at (current page.center){%
-			\mode<beamer>{\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/fishhead/head-without-gills0}{001}{160}}%
-			\mode<handout>{\includegraphics[width=\paperwidth]{./movies/fishhead/head-without-gills0001}}%
-			};%
-	\end{tikzpicture}%
-\end{frame}
-
-\begin{frame}
-	\frametitle{Gill anatomy}
-	\begin{tikzpicture}[remember picture,overlay]%
-\node at (current page.center){%
-			\mode<beamer>{\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/fishhead/head-without-gills0}{161}{481}}%
-			\mode<handout>{\includegraphics[width=\paperwidth]{./movies/fishhead/head-without-gills0333}}%
+			\mode<beamer>{\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image}{0000}{0179}}%
+			\mode<handout>{\includegraphics[width=\paperwidth]{./movies/tooth045/full/image0000}}%
 			};%
 	\end{tikzpicture}%
 \end{frame}
@@ -865,16 +633,16 @@
 				\def\x{667}% scalebar-x starting at golden ratio of image width of 1080px = 667
 				\def\y{547}% scalebar-y at 90% of image height of 608px = 547
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]%
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imwidth]{./movies/training/fishvideo_0001}};%
+					fishvideo%\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imwidth]{./movies/training/fishvideo_0001}};%
 					% 69px = 30mm > 100px = 44mm > 1142px = 500mm, 228px = 100mm
 					%\draw[|-|,blue] (410,188) -- (478,182) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{30}{\milli\meter} (TEMPORARY)};
 					\draw[|-|,white] (\x,\y) -- (\x+228.4,\y) node [midway,above] {\(\approx\)\SI{10}{\centi\meter}};%
 				\end{tikzpicture}%
 				}%
 			\only<2|handout:0>{%
-				\animategraphics[loop,autoplay,width=\linewidth,every=\everyframe]{24}{./movies/training/fishvideo_0}{001}{250}%
+				fishvideo%\animategraphics[loop,autoplay,width=\linewidth,every=\everyframe]{24}{./movies/training/fishvideo_0}{001}{250}%
 				}%
-			\only<3|handout:2>{\centering\Huge\faFish:\xspace\faRuler\xspace\&\xspace\faWeight}
+			\only<3|handout:2>{\centering\Huge\faTooth:\xspace\faRuler\xspace\&\xspace\faWeight}
 			\renewcommand{\imwidth}{0.49\columnwidth}%
 			\only<4|handout:3>{%
 				\pgfmathsetlength{\imagewidth}{\imwidth}%
@@ -882,13 +650,13 @@
 				\def\x{491}% scalebar-x starting at golden ratio of image width of 794px = 491
 				\def\y{458}% scalebar-y at 90% of image height of 509px = 458
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]%
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imwidth]{./images/EM_c5_3}};%
+					EM%\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imwidth]{./images/EM_c5_3}};%
 					% 794px = 2.4111398mm > 100px = 304um > 165px = 500um, 33px = 100um
 					%\draw[|-|,blue] (0,298) -- (794,298) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{2.4111398}{\milli\meter} (794px) TEMPORARY!};
 					\draw[|-|,white,shadowed] (\x,\y) -- (\x+165,\y) node [midway,above] {\shadowtext{\SI{500}{\micro\meter}}};%
 				\end{tikzpicture}%
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]%
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imwidth]{./images/EM_s5_3}};%
+					EM%\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imwidth]{./images/EM_s5_3}};%
 					% 794px = 2.4111398mm > 100px = 304um > 165px = 500um, 33px = 100um
 					%\draw[|-|,blue] (0,298) -- (794,298) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{2.4111398}{\milli\meter} (794px) TEMPORARY!};
 					\draw[|-|,white,shadowed] (\x,\y) -- (\x+165,\y) node [midway,above] {\shadowtext{\SI{500}{\micro\meter}}};%
@@ -902,16 +670,16 @@
 				\def\x{667}% scalebar-x starting at golden ratio of image width of 1080px = 667
 				\def\y{673}% scalebar-y at 90% of image height of 748px = 673
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imwidth]{./images/IMG_20190603_174659}};
+					DRIED FISH HEAD%\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imwidth]{./images/IMG_20190603_174659}};
 					% 294px = 12.5mm > 100px = 4250um > 118px = 5mm
 					%\draw[|-|,blue,thick] (494,218) -- (624,481) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{12.5}{\milli\meter} (294px) TEMPORARY!};
 					\draw[|-|,white,shadowed] (\x,\y) -- (\x+118,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
 				\end{tikzpicture}%
 				}
 			\only<6|handout:5>{%
-				\lstinputlisting[linerange={2-5,17-17,19-23,29-31,34-34,38-40,51-51,58-59}]{./logfiles/Control05/proj/Control05.log}%
+				LOG FILE%\lstinputlisting[linerange={2-5,17-17,19-23,29-31,34-34,38-40,51-51,58-59}]{./logfiles/Control05/proj/Control05.log}%
 				}
-			\includegraphics<7|handout:6>[height=\imheight]{./images/CTAn}%
+			CTAN\includegraphics<7|handout:6>[height=\imheight]{./images/CTAn}%
 			\only<8|handout:7>{%
 				\mode<beamer>{%
 					\animategraphics[loop,autoplay,width=\linewidth,every=\everyframe]{24}{./movies/coder/coder-}{0}{133}%
@@ -933,8 +701,6 @@
 	This means we analyzed \num{129395.29} Megapixels.
 	In total \num{46014} slices.}
 	
-
-
 \subsection{Image processing}
 \begin{frame}
 	\frametitle{Gill volume}
@@ -1005,41 +771,52 @@
 	\only<4|handout:4>{%
 		\begin{tikzpicture}[remember picture,overlay]%
 			\node at (current page.center){%
-				\mode<beamer>{\animategraphics[palindrome,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/complexity/control03_thresholded_0}{030}{256}}%
-				\mode<handout>{\includegraphics[width=\paperwidth]{./movies/complexity/control03_thresholded_0068}}%
+				GILLS%\mode<beamer>{\animategraphics[palindrome,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/complexity/control03_thresholded_0}{030}{256}}%
+				GILLS%\mode<handout>{\includegraphics[width=\paperwidth]{./movies/complexity/control03_thresholded_0068}}%
 				};%
 		\end{tikzpicture}%
 		}%
-	\only<5|handout:5>{\include{./plots/Gills_per_organ}}
-	\only<6|handout:0>{\include{./plots/Gills_per_organ_scaled}}
+	%\only<5|handout:5>{\include{./plots/Gills_per_organ}}
+	%	\only<6|handout:0>{\include{./plots/Gills_per_organ_scaled}}
 \end{frame}
 
 \begin{frame}{Thanks!}
 	\begin{itemize}
 		\item Thanks for listening to me!
-		\item<2-> \href{https://twitter.com/jackiantonovich/status/1195699076056178691}{What questions do you have for me?}
+		\item<2-> \href{https://twitter.com/jackiantonovich/status/1195699076056178691}{What questions do you have for me} and \href{https://twitter.com/ElaineLuther/status/1195708328854331392}{what can I clarify for you}?
 	\end{itemize}
 	\only<3|handout:0>{%
 		\begin{tikzpicture}[remember picture,overlay]%
 			\node at (current page.center){%
-				\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/mouse_skull/mouse_skull}{000}{236}%
+				\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image}{0000}{0179}%
 				};%
 		\end{tikzpicture}%
 	}%
+\end{frame}
+
+%- How many images did we record
+%- How much data is there, how much is saved 
+%- How much did we save
+%- Manual process -> lots of human intervention -> how long would it take
+%- Automated process -> *Fully* reproducible -> Binder
+%- Planned analysis for Andrea -> EDT
+
+\begin{frame}{Automation}
+We automated all the things, you can check it: \cite{Haberthur2020a}
 \end{frame}
 
 \begin{frame}{\href{https://en.wikipedia.org/wiki/Colophon_(publishing)}{Colophon}}
 	\begin{itemize}
 		\item This \textsc{beamer} presentation was crafted in \LaTeX\xspace with the (slightly adapted) \href{http://intern.unibe.ch/dienstleistungen/corporate_design_und_vorlagen/praesentationen/index_ger.html}{template from \emph{Corporate Design und Vorlagen} of the University of Bern}.
 		\begin{itemize}
-			\item \href{https://github.com/habi/lecture.microtomography/}{Complete source code: git.io/fjpP7}
-			\item The \LaTeX\xspace code is automatically compiled with a \href{https://github.com/actions}{GitHub action}\footnote{Details on how this works are specified in a \href{https://github.com/habi/latex-test/}{small test repository here: git.io/JeOOj}} to a \href{https://habi.github.io/Lecture.Microtomography/XRayMicroTomography.Handout.pdf}{(handout) PDF which you can access here: git.io/JeQxO}
+			\item \href{https://github.com/habi/20201112_Anatomie_Seminar}{Fullly reproducible source: git.io/JkJ5w}
+%			\item The \LaTeX\xspace code is automatically compiled with a \href{https://github.com/actions}{GitHub action}\footnote{Details on how this works are specified in a \href{https://github.com/habi/latex-test/}{small test repository here: git.io/JeOOj}} to a \href{https://habi.github.io/Lecture.Microtomography/XRayMicroTomography.Handout.pdf}{(handout) PDF which you can access here: git.io/JeQxO}
 		\end{itemize}
 		\item Did you spot an error?
 		\begin{itemize}
-			\item \href{https://github.com/habi/lecture.microtomography/issues}{File an issue: git.io/fjpPb}
-			\item \href{https://github.com/habi/lecture.microtomography/pulls}{Submit a pull request: git.io/fjpPN}
-			\item \href{mailto:haberthuer@ana.unibe.ch?subject=Error\%20in\%20the\%20(micro)-tomography\%20lecture\&body=https://xkcd.com/386/}{Send me an email: haberthuer@ana.unibe.ch}
+			\item \href{https://github.com/habi/20201112_Anatomie_Seminar/issues}{File an issue: git.io/JkJ5K}
+%			\item \href{https://github.com/habi/lecture.microtomography/pulls}{Submit a pull request: git.io/fjpPN}
+			\item \href{mailto:haberthuer@ana.unibe.ch?subject=Error\%20in\%20the\%20seminar\%20presentation\&body=https://xkcd.com/386/}{Send me an email: haberthuer@ana.unibe.ch}
 		\end{itemize}
 	\end{itemize}
 \end{frame}
