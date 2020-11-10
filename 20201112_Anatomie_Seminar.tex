@@ -49,7 +49,7 @@
 \usepackage{microtype}
 
 % Some often used abbreviations/commands
-\newcommand{\everyframe}{111} % use only every nth frame for the animations
+\newcommand{\everyframe}{1} % use only every nth frame for the animations
 \newcommand{\imwidth}{\linewidth}% set global image width
 \newcommand{\imheight}{0.618\paperheight}% set global image height
 \newlength\imagewidth% needed for scalebars
@@ -162,7 +162,7 @@
 	\end{frame}%
 }
 
-\begin{frame}[label=currentasdf]
+\begin{frame}
 	\frametitle{Grüessech!}
 	\begin{itemize}
 		\item Office \href{http://osm.org/go/0CZwlGp3A?m}{B311} | \href{mailto:haberthuer@ana.unibe.ch?subject=Feedback\%20from\%20the\%20(micro)-tomography\%20lecture}{haberthuer@ana.unibe.ch}
@@ -189,7 +189,7 @@
 	\tableofcontents
 \end{frame}
 
-\section{Overview}
+\section{Biomedical imaging}
 \begin{frame}
 	\frametitle{Biomedical imaging}
 	\begin{columns}
@@ -430,12 +430,12 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}
-	\frametitle{What is happening?}
-	\centering
-	\includegraphics[height=\imheight]{./images/3D_Computed_Tomography}
-	\source{w.wiki/7g3}{\ccbysa}
-\end{frame}
+%\begin{frame}
+%	\frametitle{What is happening?}
+%	\centering
+%	\includegraphics[height=\imheight]{./images/3D_Computed_Tomography}
+%	\source{w.wiki/7g3}{\ccbysa}
+%\end{frame}
 
 \begin{frame}
 	\frametitle{Examples}
@@ -569,7 +569,7 @@
 
 \subsection{Protocol}
 \renewcommand{\imwidth}{\columnwidth}
-\begin{frame}[label=current]
+\begin{frame}
 	\frametitle{How?}
 	\begin{columns}
 		\begin{column}{0.49\linewidth}
@@ -618,7 +618,7 @@
 \end{frame}
 
 \subsection{\uct imaging}
-\begin{frame}[label=current]
+\begin{frame}
 	\frametitle{\uct imaging}
 	\centering
 	\includegraphics<1>[height=\imheight]{./images/{{ScanOverviews.104}}}%
@@ -626,7 +626,7 @@
 \end{frame}	
 	
 \subsection{(hands-off) Image processing}
-\begin{frame}[label=curret]
+\begin{frame}
 	\frametitle{Dataset cropping}
 	\begin{columns}
 		\begin{column}{0.309\linewidth}	
@@ -674,11 +674,12 @@
 	\end{tikzpicture}%
 \end{frame}
 
-\begin{frame}[label=current]
+\begin{frame}
 	\frametitle{Detection of enamel-dentin border}
 	\centering
 	\only<1>{%
 		\includegraphics[height=\imheight]{./images/briseno}%
+		\sourcecite{Briseno-Marroquin2015}{Fig.~2}%
 		}
 	\only<2>{%
 		\includegraphics[height=\imheight]{./images/tooth045/{{Tooth045.ExtractedSlices}}}%
@@ -688,21 +689,22 @@
 		}
 \end{frame}
 
-\begin{frame}[label=current]
+\begin{frame}
 	\frametitle{Extraction of pulpa}
 	\begin{tikzpicture}[remember picture,overlay]%
 		\node at (current page.center){%
 			\only<1>{\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/transparent-slices/image0}{000}{473}}%
-			\only<2>{\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/pulpa/image0}{000}{476}}%
+			\only<2>{\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/pulpa/image0}{000}{413}}%
 			};%
 	\end{tikzpicture}%
 \end{frame}
 
-\begin{frame}[label=current]
+\begin{frame}
 	\frametitle{Analysis of the physiological foramen geometry}
 	\centering
 	\only<1>{%
 		\includegraphics[height=\imheight]{./images/foramen}%
+		\sourcecite{Wolf2017}{Fig.~1}%
 		}%
 	\only<2>{%
 		\animategraphics[palindrome,autoplay,height=\imheight,every=\everyframe]{24}{./movies/tooth045/edt-axial/Tooth045_EDT_Axial_}{100}{199}%
@@ -712,14 +714,14 @@
 		}		
 \end{frame}
 
-\begin{frame}[label=currentasdfasdf]
+\begin{frame}
 	\frametitle{Thanks!}
 	\begin{columns}
 		\begin{column}{0.5\linewidth}
 		\begin{itemize}
 			\item Topographic and clinical Anatomy
 				\begin{itemize}
-					\item Valentin Djonov, Ruslan Hlushchuk, Oleksiy-Zakhar Khoma and Jennifer Fazzari~\cite{Haberthur2020}
+					\item Valentin Djonov, Ruslan Hlushchuk, Oleksiy-Zakhar Khoma and Jennifer Fazzari
 				\end{itemize}
 			\item zmk bern – Zahnmedizinische Kliniken
 				\begin{itemize}
@@ -761,12 +763,12 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[label=current]
+\begin{frame}
 	\frametitle{References}
 	% Make the references continuously smaller :)
 	%\renewcommand*{\bibfont}{\small}
-	\renewcommand*{\bibfont}{\footnotesize}
-	%\renewcommand*{\bibfont}{\scriptsize}
+	%\renewcommand*{\bibfont}{\footnotesize}
+	\renewcommand*{\bibfont}{\scriptsize}
 	%\renewcommand*{\bibfont}{\tiny}
 	\setbeamertemplate{bibliography item}{\insertbiblabel}
 	\printbibliography
