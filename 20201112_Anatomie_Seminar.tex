@@ -8,7 +8,7 @@
 \author{David Haberthür}
 \date{November 12, 2020 | Internal seminar at the Institute of Anatomy}
 
-%\includeonlyframes{current}
+\includeonlyframes{current}
 %then....
 %\begin{frame}[label=current]
 %\end{frame}
@@ -27,7 +27,7 @@
 	maxnames=1,
 	sorting=none
 	]{biblatex}
-\addbibresource{../../Documents/library.bib}
+\addbibresource{~/P/Documents/library.bib}
 \usepackage{ccicons}
 \usepackage{animate}
 \usepackage{tikz}
@@ -40,6 +40,10 @@
 \usepackage{fontawesome5}
 \usepackage{standalone}
 \usepackage[version=4]{mhchem}
+\usepackage{listings}
+	\lstset{frame=single,
+	basicstyle=\tiny\ttfamily
+	}
 
 %\usepackage{pgfplots}
 %	\pgfplotsset{compat=newest}
@@ -48,11 +52,6 @@
 
 
 %\usepackage{csquotes}
-%\usepackage{listings}
-%	\lstset{frame=single,
-		%backgroundcolor = \color{lightgray},
-%		basicstyle=\tiny\ttfamily
-%		}
 %\usepackage{pgfplotstable}
 %\usepackage{booktabs}
 %\usepackage{colortbl}
@@ -158,6 +157,9 @@
 % THIS IS A BIG HACK, IT SHOULD BE FIXED IN THE TEMPLATE
 \addtobeamertemplate{frametitle}{}{\vspace*{0.75em}}
 
+% Small citations as footnotes
+\setbeamerfont{footnote}{size=\tiny}
+
 \begin{document}
 % No footline on the title page
 % http://tex.stackexchange.com/a/18829/828 helps us to achieve that
@@ -168,7 +170,8 @@
 	\end{frame}%
 }
 
-\begin{frame}{Grüessech!}
+\begin{frame}[label=currentasdf]
+	\frametitle{Grüessech!}
 	\begin{itemize}
 		\item Office \href{http://osm.org/go/0CZwlGp3A?m}{B311} | \href{mailto:haberthuer@ana.unibe.ch?subject=Feedback\%20from\%20the\%20(micro)-tomography\%20lecture}{haberthuer@ana.unibe.ch}
 		\item Physicist by trade with a \href{https://boris.unibe.ch/2619/}{PhD in high resolution imaging of the lung} at the Institute of Anatomy
@@ -186,12 +189,14 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Contents}
+\begin{frame}
+	\frametitle{Contents}
 	\tableofcontents
 \end{frame}
 
 \section{Overview}
-\begin{frame}{Biomedical imaging}
+\begin{frame}
+	\frametitle{Biomedical imaging}
 	\begin{columns}
 		\begin{column}{0.4\linewidth}
 			\begin{itemize}
@@ -219,14 +224,16 @@
 \end{frame}
 	
 \section{Imaging}
-\begin{frame}{Scale}
+\begin{frame}
+	\frametitle{Scale}
 	\centering
 	\includegraphics[height=\imheight]{./images/AnatomySeminarYuryBelyaev-cropped}%
 	\sourcelink{www.mic.unibe.ch/organisation.php}{Yury Belyaev, MIC}{slide from internal seminar presentation}
 \end{frame}
 
 \section{Tomography}
-\begin{frame}{CT-Scanner}
+\begin{frame}
+	\frametitle{CT-Scanner}
 	\centering
 	\mode<beamer>{%
 		\animategraphics[loop,autoplay,height=0.618\textheight,every=\everyframe]{24}{./movies/ct-scanner/ct-scanner0}{001}{480}%
@@ -243,7 +250,8 @@
 \end{frame}
 
 \renewcommand{\imwidth}{\columnwidth}
-\begin{frame}[label=current]{Why \uct?}
+\begin{frame}[label=currentsadfasd]
+	\frametitle{Why \uct?}
 	\begin{columns}
 		\begin{column}{0.49\linewidth}
 			% https://www.cancerimagingarchive.net/nbia-search/?saved-cart=nbia-76761575299081509
@@ -266,7 +274,7 @@
 				\def\y{361}% scalebar-y at 90% of image height of 401px = 361
 				\def\mag{5}% magnification of inset
 				\def\size{100}% size of inset
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale,spy using outlines={rectangle,magnification=\mag,size=\size,connect spies}]
+				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
 					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/comparison/MAX_human}};
 					\spy [red] on (102,342) in node at (256,201) [anchor=center];
 					% 512.000px = 250.0096mm -> 100px = 48830.000um -> 1.024px = 500um, 0.205px = 100um
@@ -349,7 +357,7 @@
 				\def\y{1343}% scalebar-y at 90% of image height of 1492px = 1343
 				\def\mag{5}% magnification of inset
 				\def\size{100}% size of inset
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale,spy using outlines={rectangle,magnification=\mag,size=\size,connect spies}]
+				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
 					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/comparison/MAX_mouse}};
 					\spy [red] on (352,1116) in node at (1648,746) [anchor=center];
 					% 3295.000px = 26.2282mm -> 100px = 796.000um -> 62.814px = 500um, 12.563px = 100um
@@ -379,7 +387,8 @@
 	}
 
 \subsection{Tomography today}
-\begin{frame}{Machinery}
+\begin{frame}
+	\frametitle{Machinery}
 	\begin{columns}
 		\begin{column}{0.4\linewidth}
 			\begin{itemize}
@@ -416,7 +425,8 @@
 	MULTISLICE CT -> HOSPITAL
 }
 
-\begin{frame}{Machinery}
+\begin{frame}
+	\frametitle{Machinery}
 	No matter what kind of machine, the basic principle is always the same
 	\begin{itemize}
 		\item an x-ray source
@@ -425,7 +435,8 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Machinery}
+\begin{frame}
+	\frametitle{Machinery}
 	\begin{columns}
 		\begin{column}{0.49\linewidth}
 			\centering
@@ -440,13 +451,15 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}{What is happening?}
+\begin{frame}
+	\frametitle{What is happening?}
 	\centering
 	\includegraphics[height=0.618\textheight]{./images/3D_Computed_Tomography}
 	\source{w.wiki/7g3}{\ccbysa}
 \end{frame}
 
-\begin{frame}{Examples}
+\begin{frame}
+	\frametitle{Examples}
 	\centering
 	\only<1|handout:1>{%
 		\pgfmathsetlength{\imagewidth}{0.9\linewidth}%
@@ -460,24 +473,7 @@
 			\draw[|-|,white,shadowed] (\x,\y) -- (\x+628.14,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
 		\end{tikzpicture}%
 	}%
-	\pgfmathsetlength{\imagewidth}{0.5\linewidth}%
-	\pgfmathsetlength{\imagescale}{\imagewidth/2301}%
-	\def\x{1422+450}% scalebar-x starting at golden ratio of image width of 2301px = 1422
-	\def\y{1715}% scalebar-y at 90% of image height of 1906px = 1715
-	\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-		\only<2|handout:2>{%
-			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/2834_left_post_Cu_011_1272_360_5um_reslice}};
-		}%
-		\only<3|handout:0>{%
-			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/2834_left_post_Cu_011_1272_360_5um_reslice_stretched}};
-		}%
-		% 2301.000px = 11.505mm -> 100px = 500.000um -> 100.000px = 500um, 20.000px = 100um
-		%\draw[|-|,blue,thick] (0,953) -- (2301,953) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{11.505}{\milli\meter} (2301px) TEMPORARY!};
-		\only<2-3|handout:2>{%
-			\draw[|-|,white,shadowed] (\x,\y) -- (\x+200,\y) node [midway,above] {\shadowtext{\SI{1}{\milli\meter}}};
-		}
-	\end{tikzpicture}%
-	\only<4|handout:3>{%
+	\only<3|handout:2>{%
 		\pgfmathsetlength{\imagewidth}{0.618\linewidth}%
 		\pgfmathsetlength{\imagescale}{\imagewidth/690}%
 		\def\x{426}% scalebar-x starting at golden ratio of image width of 690px = 426
@@ -520,14 +516,16 @@
 
 \section{A scan, from start to finish}
 \renewcommand{\imwidth}{0.49\linewidth}
-\begin{frame}{Projections}
+\begin{frame}
+	\frametitle{Projections}
 	\centering
 	% Movie frames generated with https://github.com/habi/Lecture.Microtomography/blob/master/Notebooks/FromProjectionsToReconstructions.ipynb
 	\mode<beamer>{\animategraphics[autoplay,loop,height=\imheight,every=\everyframe]{24}{./movies/scan/projections/KP-TNIKWT02_240_projections_of_940_800_px_}{000}{313}}
 	\mode<handout>{\includegraphics[height=\imheight]{./movies/scan/projections/KP-TNIKWT02_240_projections_of_940_800_px_000}}
 \end{frame}
 
-\begin{frame}{Projections}
+\begin{frame}
+	\frametitle{Projections}
 	\begin{itemize}
 		\item A (micro-focus) x-ray source illuminates the object
 		\item The x-rays penetrate the sample and are attenuated
@@ -537,14 +535,16 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Reconstructions}
+\begin{frame}
+	\frametitle{Reconstructions}
 	\centering
 	% Movie frames generated with https://github.com/habi/Lecture.Microtomography/blob/master/Notebooks/FromProjectionsToReconstructions.ipynb
 	\mode<beamer>{\animategraphics[autoplay,palindrome,height=\imheight,every=\everyframe]{24}{./movies/scan/reconstructions/KP-TNIKWT02_240_reconstructions_of_556_800_px_}{000}{277}}
 	\mode<handout>{\includegraphics[height=\imheight]{./movies/scan/reconstructions/KP-TNIKWT02_240_reconstructions_of_556_800_px_000}}
 \end{frame}
 
-\begin{frame}{Reconstructions}
+\begin{frame}
+	\frametitle{Reconstructions}
 	\begin{itemize}
 		\item Based on hundreds of angular views acquired while the object rotates, a computer synthesizes a stack of virtual cross section slices through the object.
 		\item Radon Transformation
@@ -555,7 +555,8 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Visualization}
+\begin{frame}
+	\frametitle{Visualization}
 	\begin{tikzpicture}[remember picture,overlay]%
 	\node at (current page.center){%
 		\mode<beamer>{\animategraphics[autoplay,loop,height=\paperheight,every=\everyframe]{24}{./movies/scan/visualization/lung}{000}{240}}%
@@ -564,228 +565,187 @@
 	\end{tikzpicture}%
 \end{frame}
 
-\begin{frame}{Visualization}
+\begin{frame}
+	\frametitle{Visualization}
 	\begin{itemize}
 		\item Based on the reconstructions the computer synthesizes a three-dimensional view of the scanned sample
 	\end{itemize}
 \end{frame}
 
 \section{What about those teeth?}
-\begin{frame}{Quantitative data}
-	\begin{itemize}
-		\item Raw numbers instead of just pretty images
-		\item Segmentation
-		\item Characterization
-		\item All automated as much as possible with Jupyter~\cite{Kluyver2016}
-	\end{itemize}
+\begin{frame}
+	\frametitle{Tooth morphology}
+	\begin{tikzpicture}[remember picture,overlay]%
+		\node at (current page.center){%
+			\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image}{0000}{0179}%
+			};%
+	\end{tikzpicture}%
 \end{frame}
 
 \subsection{Overview}
 \begin{frame}
 	\frametitle{Internal morphology of human teeth}
 	\begin{itemize}
-		\item Raw numbers instead of just pretty images
+		\item Numbers instead of just pretty images
 		\item Segmentation
 		\item Characterization
-		\item All automated as much as possible with Jupyter~\cite{Kluyver2016}
+		\item Reproducible and automated image analysis with Jupyter~\cite{Kluyver2016}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Tooth morphology}
+\subsection{Protocol}
+\renewcommand{\imwidth}{\columnwidth}
+\begin{frame}[label=current]
+	\frametitle{How?}
+	\begin{columns}
+		\begin{column}{0.49\linewidth}
+			\begin{itemize}
+				\item<1-> 104 extracted human permanent mandibular canines, stored in \SI{70}{\percent} ethanol
+				\item<2-> \uct imaging
+				\item<4-> Morphology
+				\begin{itemize}
+					\item<4-> Root canal  morphology, according to~\citeauthor{Briseno-Marroquin2015}~\cite{Briseno-Marroquin2015}
+					\item<5-> Foramen geometry and size, according to~\citeauthor{Wolf2017}~\cite{Wolf2017}
+				\end{itemize}
+				
+				\item<6> \emph{Reproducible} analysis~\cite{Haberthur2020a}, you can click a button to redo it yourself
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.49\linewidth}
+			\only<1>{%
+				\centering
+				\includegraphics[height=.7\textheight]{./images/bucketofteeth}%
+				}%
+			\only<2>{%
+				\lstinputlisting[linerange={2-5,17-17,19-23,29-31,34-34,38-40,51-51,58-59}]{./logfiles/Tooth045.log}%
+				}%
+			\only<3>{%
+				In total:
+				\begin{itemize}
+					\item Sample changer
+					\item 13 days of \uct scanning
+					\item \SI{819}{\giga\byte} of raw data\newline\num{230648} TIFF projections
+					\item \SI{326}{\giga\byte} of raw data\newline\num{282062} PNG reconstructions
+				\end{itemize}					
+					}%		
+			\only<4>{%
+				\includegraphics[width=\textwidth]{./images/briseno}%
+				\sourcecite{Briseno-Marroquin2015}{Fig.~2}%
+				}%
+			\only<5>{%
+				\includegraphics[width=\textwidth]{./images/foramen}%
+				\sourcecite{Wolf2017}{Fig.~1}%
+				}%		
+			\only<6>{%
+				\animategraphics[loop,autoplay,width=\linewidth,every=\everyframe]{24}{./movies/coder/coder-}{0}{133}%
+				\source{gph.is/2nqkple}{}%
+				}%
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\subsection{\uct imaging}
+\begin{frame}[label=current]
+	\frametitle{\uct imaging}
+	\centering
+	\includegraphics<1>[height=0.7\textheight]{./images/{{ScanOverviews.104}}}%
+	\includegraphics<2>[height=0.7\textheight]{./images/{{ScanOverviews.24}}}%
+\end{frame}	
+	
+\subsection{Image processing}
+\begin{frame}[label=curret]
+	\frametitle{Dataset cropping}
+	\begin{columns}
+		\begin{column}{0.309\linewidth}	
+			\begin{itemize}
+				\item<1-> Full datasets: \SI{326}{\giga\byte}
+				\item<2-> Cropped: \SI{115}{\giga\byte}
+			\end{itemize}
+		\end{column}	
+		\begin{column}{0.618\linewidth}
+			\centering
+			\renewcommand{\imwidth}{\columnwidth}%				
+			\only<1>{%
+				\pgfmathsetlength{\imagewidth}{\imwidth}%
+				\pgfmathsetlength{\imagescale}{\imagewidth/2585}%
+				\def\x{1598}% scalebar-x starting at golden ratio of image width of 2585px = 1598
+				\def\y{1469}% scalebar-y at 90% of image height of 1632px = 1469
+				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/tooth045/{{Tooth045.mip.rec}}}};
+					% 2585.000px = 25.849963810000002mm -> 100px = 999.999um -> 50.000px = 500um, 10.000px = 100um
+					\draw[|-|,white,shadowed] (\x,\y) -- (\x+500,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
+				\end{tikzpicture}%
+				}%
+			\only<2>{%
+				\pgfmathsetlength{\imagewidth}{\imwidth}%
+				\pgfmathsetlength{\imagescale}{\imagewidth/2391}%
+				\def\x{1478}% scalebar-x starting at golden ratio of image width of 2391px = 1478
+				\def\y{547}% scalebar-y at 90% of image height of 608px = 547
+				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/tooth045/{{Tooth045.mip.rec.crop}}}};
+					% 2391.000px = 23.909966526mm -> 100px = 999.999um -> 50.000px = 500um, 10.000px = 100um
+					\draw[|-|,white,shadowed] (\x,\y) -- (\x+500,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
+				\end{tikzpicture}%
+				}%
+		\end{column}	
+	\end{columns}		
+\end{frame}
+
+\begin{frame}[label=current]
+	\frametitle{Detection of enamel-dentin border}
+	\centering
+	\only<1>{%
+		\includegraphics[height=0.7\textheight]{/media/habi/Fast_SSD/Talks/20201112_Anatomie_Seminar/images/tooth045/{{Tooth045.ExtractedSlices}}}%
+		}
+	\only<2>{%
+		\includegraphics[width=\linewidth]{/media/habi/Fast_SSD/Talks/20201112_Anatomie_Seminar/images/tooth045/{{Tooth045.Briseno}}}%
+		}
+\end{frame}
+
+\begin{frame}[label=current]
+	\frametitle{Extraction of pulpa}
 	\begin{tikzpicture}[remember picture,overlay]%
 		\node at (current page.center){%
-			\mode<beamer>{\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image}{0000}{0179}}%
-			\mode<handout>{\includegraphics[width=\paperwidth]{./movies/tooth045/full/image0000}}%
+			\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/pulpa-slices/image}{0000}{0179}%
 			};%
 	\end{tikzpicture}%
 \end{frame}
 
-\subsection{Setup}
-\renewcommand{\imwidth}{\columnwidth}
-\begin{frame}{How?}
+\begin{frame}[label=current]
+	\frametitle{Analysis of the physiological foramen geometry}
+	\centering
+	\only<1>{%
+		\animategraphics[palindrome,autoplay,height=0.7\textheight,every=\everyframe]{24}{./movies/tooth045/edt-axial/Tooth045_EDT_Axial_}{100}{199}%
+		}%
+	\only<2>{%
+		\animategraphics[palindrome,autoplay,height=0.7\textheight,every=\everyframe]{24}{./movies/tooth045/edt-coronal/Tooth045_EDT_Coronal_}{123}{213}%
+		}		
+\end{frame}
+
+\begin{frame}[label=currentasdfasdf]
+	\frametitle{Thanks!}
 	\begin{columns}
-		\begin{column}{0.49\linewidth}
-			\begin{itemize}
-				\item<1-> Training for \SI{5}{w}, \SI{5}{\day\per w}, \SI{6}{\hour\per\day}, at \SI{66}{\percent} of critical speed~\cite{Palstra2010}
+		\begin{column}{0.5\linewidth}
+		\begin{itemize}
+			\item Topographic and clinical Anatomy
 				\begin{itemize}
-					\item<1-> Endurance
+					\item Valentin Djonov, Ruslan Hlushchuk, Oleksiy-Zakhar Khoma and Jennifer Fazzari
 				\end{itemize}
-				\item<3-|handout:2-> Morphology \& Physiology
+			\item zmk bern – Zahnmedizinische Kliniken
 				\begin{itemize}
-					\item<3-|handout:2-> Body size \& weight
-					\item<3-|handout:2-> \ce{O2} consumption
-				\end{itemize}
-				\item<4-|handout:3-> Scanning electron microscopy
-				\begin{itemize}
-					\item<4-|handout:3-> Gill structure
-				\end{itemize}
-				\item<5-|handout:4-> Critical point drying\onslide<6-|handout:5->{, \uct imaging}\onslide<7-|handout:6->{, delineation in CTAn }\onslide<8-|handout:7->{and analysis}
-				\begin{itemize}
-					\item<8-|handout:7-> Gill volume, structure and complexity
-				\end{itemize}
-			\end{itemize}
+					\item Thomas G.\ Wolf, Andrea Anderegg and Michael Stiebritz
+				\end{itemize}				
+			\item SNF
+			\item<2-> You, for listening to me
+			\item<3-> \href{https://twitter.com/jackiantonovich/status/1195699076056178691}{What questions do you have for me} and \href{https://twitter.com/ElaineLuther/status/1195708328854331392}{what can I clarify for you}?
+		\end{itemize}
 		\end{column}
-		\begin{column}{0.49\linewidth}
-			\only<1|handout:1>{%
-				\pgfmathsetlength{\imagewidth}{\imwidth}%
-				\pgfmathsetlength{\imagescale}{\imagewidth/1080}%
-				\def\x{667}% scalebar-x starting at golden ratio of image width of 1080px = 667
-				\def\y{547}% scalebar-y at 90% of image height of 608px = 547
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]%
-					fishvideo%\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imwidth]{./movies/training/fishvideo_0001}};%
-					% 69px = 30mm > 100px = 44mm > 1142px = 500mm, 228px = 100mm
-					%\draw[|-|,blue] (410,188) -- (478,182) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{30}{\milli\meter} (TEMPORARY)};
-					\draw[|-|,white] (\x,\y) -- (\x+228.4,\y) node [midway,above] {\(\approx\)\SI{10}{\centi\meter}};%
-				\end{tikzpicture}%
-				}%
-			\only<2|handout:0>{%
-				fishvideo%\animategraphics[loop,autoplay,width=\linewidth,every=\everyframe]{24}{./movies/training/fishvideo_0}{001}{250}%
-				}%
-			\only<3|handout:2>{\centering\Huge\faTooth:\xspace\faRuler\xspace\&\xspace\faWeight}
-			\renewcommand{\imwidth}{0.49\columnwidth}%
-			\only<4|handout:3>{%
-				\pgfmathsetlength{\imagewidth}{\imwidth}%
-				\pgfmathsetlength{\imagescale}{\imagewidth/794}%
-				\def\x{491}% scalebar-x starting at golden ratio of image width of 794px = 491
-				\def\y{458}% scalebar-y at 90% of image height of 509px = 458
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]%
-					EM%\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imwidth]{./images/EM_c5_3}};%
-					% 794px = 2.4111398mm > 100px = 304um > 165px = 500um, 33px = 100um
-					%\draw[|-|,blue] (0,298) -- (794,298) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{2.4111398}{\milli\meter} (794px) TEMPORARY!};
-					\draw[|-|,white,shadowed] (\x,\y) -- (\x+165,\y) node [midway,above] {\shadowtext{\SI{500}{\micro\meter}}};%
-				\end{tikzpicture}%
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]%
-					EM%\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imwidth]{./images/EM_s5_3}};%
-					% 794px = 2.4111398mm > 100px = 304um > 165px = 500um, 33px = 100um
-					%\draw[|-|,blue] (0,298) -- (794,298) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{2.4111398}{\milli\meter} (794px) TEMPORARY!};
-					\draw[|-|,white,shadowed] (\x,\y) -- (\x+165,\y) node [midway,above] {\shadowtext{\SI{500}{\micro\meter}}};%
-				\end{tikzpicture}%
-				}
-			\renewcommand{\imwidth}{\columnwidth}
-			\only<5|handout:4>{%
-				\centering
-				\pgfmathsetlength{\imagewidth}{\imwidth}%
-				\pgfmathsetlength{\imagescale}{\imagewidth/1080}%
-				\def\x{667}% scalebar-x starting at golden ratio of image width of 1080px = 667
-				\def\y{673}% scalebar-y at 90% of image height of 748px = 673
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					DRIED FISH HEAD%\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imwidth]{./images/IMG_20190603_174659}};
-					% 294px = 12.5mm > 100px = 4250um > 118px = 5mm
-					%\draw[|-|,blue,thick] (494,218) -- (624,481) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{12.5}{\milli\meter} (294px) TEMPORARY!};
-					\draw[|-|,white,shadowed] (\x,\y) -- (\x+118,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
-				\end{tikzpicture}%
-				}
-			\only<6|handout:5>{%
-				LOG FILE%\lstinputlisting[linerange={2-5,17-17,19-23,29-31,34-34,38-40,51-51,58-59}]{./logfiles/Control05/proj/Control05.log}%
-				}
-			CTAN\includegraphics<7|handout:6>[height=\imheight]{./images/CTAn}%
-			\only<8|handout:7>{%
-				\mode<beamer>{%
-					\animategraphics[loop,autoplay,width=\linewidth,every=\everyframe]{24}{./movies/coder/coder-}{0}{133}%
-					\source{gph.is/2nqkple}{}%
-					}%
-				\mode<handout>{%
-					\includegraphics[width=\linewidth]{./movies/coder/coder-0}
-					\source{gph.is/2nqkple}{}%
-					}%
-				}
+		\begin{column}{0.5\linewidth}
+			\centering
+			\includegraphics<1->[height=.7\textheight]{./images/team}
 		\end{column}
 	\end{columns}
-\end{frame}
-\note{Comparable with the weekly training routine of Michael Phelps.
-	The fish trained only for ca. \SI{7}{\percent} of their lifetime and started as adults.
-	The Olympic winner trained for half of his lifetime and started as child.}
-\note{We analyzed 20 samples with a mean size of a cube with a side length of 1863 pixels.
-	This means we analyzed 129.40 Gigapixels.
-	This means we analyzed \num{129395.29} Megapixels.
-	In total \num{46014} slices.}
-	
-\subsection{Image processing}
-\begin{frame}
-	\frametitle{Gill volume}
-	\centering
-	\only<1|handout:1>{%
-		\pgfmathsetlength{\imagewidth}{0.4\linewidth}%
-		\pgfmathsetlength{\imagescale}{\imagewidth/2524}%
-		\def\x{1560}% scalebar-x starting at golden ratio of image width of 2524px = 1560
-		\def\y{2272}% scalebar-y at 90% of image height of 2524px = 2272
-		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/Control03_rec00001865}};
-			% 2524px = 4.1874422mm > 100px = 166um > 301px = 500um, 60px = 100um
-			%\draw[|-|,blue] (0,1262) -- (2524,1262) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{4.18}{\milli\meter} (2524px) TEMPORARY!};
-			\draw[|-|,white,shadowed] (\x,\y) -- (\x+301,\y) node [midway,above] {\shadowtext{\SI{500}{\micro\meter}}};
-		\end{tikzpicture}%
-	}%
-	\pgfmathsetlength{\imagewidth}{0.618\linewidth}%
-	\pgfmathsetlength{\imagescale}{\imagewidth/2163}%
-	\def\x{1730}% scalebar-x starting at golden ratio of image width of 2163px = 1337
-	\def\y{1191}% scalebar-y at 90% of image height of 1323px = 1191
-	\only<2|handout:2>{%
-		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/Control03_rec00001865_crop}};
-			% 2163px = 3.5885251499999997mm > 100px = 166um > 301px = 500um, 60px = 100um
-			\draw[|-|,white,shadowed] (\x,\y) -- (\x+301,\y) node [midway,above] {\shadowtext{\SI{500}{\micro\meter}}};
-		\end{tikzpicture}%
-		}%
-	\only<3|handout:3>{%
-		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/Control03_rec0000_voi_1865_crop}};
-			\draw[|-|,white,shadowed] (\x,\y) -- (\x+301,\y) node [midway,above] {\shadowtext{\SI{500}{\micro\meter}}};
-		\end{tikzpicture}%
-		}%
-	\only<4|handout:4>{%
-		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/Control03_thresholded_1500_crop}};
-			\draw[|-|,white,shadowed] (\x,\y) -- (\x+301,\y) node [midway,above] {\shadowtext{\SI{500}{\micro\meter}}};
-		\end{tikzpicture}%
-		}%
-	\only<5|handout:5>{\include{./plots/Gillvolume}}
-	\only<6|handout:0>{\include{./plots/Gillvolume_scaled}}
-\end{frame}
-
-\begin{frame}{Gill complexity}
-	\centering
-	\pgfmathsetlength{\imagewidth}{0.618\linewidth}%
-	\pgfmathsetlength{\imagescale}{\imagewidth/2163}%
-	\def\x{1730}% scalebar-x starting at golden ratio of image width of 2163px = 1337
-	\def\y{1191}% scalebar-y at 90% of image height of 1323px = 1191
-	\only<1|handout:1>{%
-		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/Control03_thresholded_1500_crop}};
-			\draw[|-|,white,shadowed] (\x,\y) -- (\x+301,\y) node [midway,above] {\shadowtext{\SI{500}{\micro\meter}}};
-		\end{tikzpicture}%
-		}%
-	\only<2|handout:2>{%
-		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/Control03_area_organ_1500_crop_edit}};
-			\draw[|-|,white,shadowed] (\x,\y) -- (\x+301,\y) node [midway,above] {\shadowtext{\SI{500}{\micro\meter}}};
-		\end{tikzpicture}%
-		}%
-	\only<3|handout:3>{%
-		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/Control03_area_organ_1500_crop_combination}};
-			\draw[|-|,white,shadowed] (\x,\y) -- (\x+301,\y) node [midway,above] {\shadowtext{\SI{500}{\micro\meter}}};
-		\end{tikzpicture}%
-		}%
-	\only<4|handout:4>{%
-		\begin{tikzpicture}[remember picture,overlay]%
-			\node at (current page.center){%
-				GILLS%\mode<beamer>{\animategraphics[palindrome,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/complexity/control03_thresholded_0}{030}{256}}%
-				GILLS%\mode<handout>{\includegraphics[width=\paperwidth]{./movies/complexity/control03_thresholded_0068}}%
-				};%
-		\end{tikzpicture}%
-		}%
-	%\only<5|handout:5>{\include{./plots/Gills_per_organ}}
-	%	\only<6|handout:0>{\include{./plots/Gills_per_organ_scaled}}
-\end{frame}
-
-\begin{frame}{Thanks!}
-	\begin{itemize}
-		\item Thanks for listening to me!
-		\item<2-> \href{https://twitter.com/jackiantonovich/status/1195699076056178691}{What questions do you have for me} and \href{https://twitter.com/ElaineLuther/status/1195708328854331392}{what can I clarify for you}?
-	\end{itemize}
-	\only<3|handout:0>{%
+	\only<4|handout:0>{%
 		\begin{tikzpicture}[remember picture,overlay]%
 			\node at (current page.center){%
 				\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image}{0000}{0179}%
@@ -794,18 +754,8 @@
 	}%
 \end{frame}
 
-%- How many images did we record
-%- How much data is there, how much is saved 
-%- How much did we save
-%- Manual process -> lots of human intervention -> how long would it take
-%- Automated process -> *Fully* reproducible -> Binder
-%- Planned analysis for Andrea -> EDT
-
-\begin{frame}{Automation}
-We automated all the things, you can check it: \cite{Haberthur2020a}
-\end{frame}
-
-\begin{frame}{\href{https://en.wikipedia.org/wiki/Colophon_(publishing)}{Colophon}}
+\begin{frame}
+	\frametitle{\href{https://en.wikipedia.org/wiki/Colophon_(publishing)}{Colophon}}
 	\begin{itemize}
 		\item This \textsc{beamer} presentation was crafted in \LaTeX\xspace with the (slightly adapted) \href{http://intern.unibe.ch/dienstleistungen/corporate_design_und_vorlagen/praesentationen/index_ger.html}{template from \emph{Corporate Design und Vorlagen} of the University of Bern}.
 		\begin{itemize}
@@ -821,12 +771,13 @@ We automated all the things, you can check it: \cite{Haberthur2020a}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{References}
+\begin{frame}
+	\frametitle{References}
 	% Make the references continuously smaller :)
 	%\renewcommand*{\bibfont}{\small}
 	%\renewcommand*{\bibfont}{\footnotesize}
 	%\renewcommand*{\bibfont}{\scriptsize}
-	\renewcommand*{\bibfont}{\tiny}
+	%\renewcommand*{\bibfont}{\tiny}
 	\setbeamertemplate{bibliography item}{\insertbiblabel}
 	\printbibliography
 \end{frame}
