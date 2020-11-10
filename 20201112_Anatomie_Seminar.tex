@@ -5,10 +5,11 @@
 \usetheme{UniBern}
 
 \title{How to study the internals of +100 human teeth with X-ray microtomography}
+\subtitle{subtitle}
 \author{David Haberthür}
 \date{November 12, 2020 | Internal seminar at the Institute of Anatomy}
 
-\includeonlyframes{current}
+%\includeonlyframes{current}
 %then....
 %\begin{frame}[label=current]
 %\end{frame}
@@ -27,7 +28,8 @@
 	maxnames=1,
 	sorting=none
 	]{biblatex}
-\addbibresource{~/P/Documents/library.bib}
+%\addbibresource{~/P/Documents/library.bib}
+\addbibresource{~/Documents/library.bib}
 \usepackage{ccicons}
 \usepackage{animate}
 \usepackage{tikz}
@@ -36,7 +38,7 @@
 \usepackage{shadowtext}  % for the shadowed scalebar
 	\shadowoffset{1pt}
 	\shadowcolor{ubRed}
-\usepackage[absolute,overlay]{textpos} %for the \source{} command	
+\usepackage[absolute,overlay]{textpos} %for the \source* command	
 \usepackage{fontawesome5}
 \usepackage{standalone}
 \usepackage[version=4]{mhchem}
@@ -44,17 +46,7 @@
 	\lstset{frame=single,
 	basicstyle=\tiny\ttfamily
 	}
-
-%\usepackage{pgfplots}
-%	\pgfplotsset{compat=newest}
-	
 \usepackage{microtype}
-
-
-%\usepackage{csquotes}
-%\usepackage{pgfplotstable}
-%\usepackage{booktabs}
-%\usepackage{colortbl}
 
 % Some often used abbreviations/commands
 \newcommand{\everyframe}{111} % use only every nth frame for the animations
@@ -200,22 +192,21 @@
 	\begin{columns}
 		\begin{column}{0.4\linewidth}
 			\begin{itemize}
-				\item<1-|handout:1->Medical research
-				\item<1-|handout:1->Non-destructive insights into the samples
-				\item<2-|handout:1->(Small) Biological samples
+				\item<1->Medical research
+				\item<1->Non-destructive insights into the samples
+				\item<2->(Small) Biological samples
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.6\linewidth}
 			\centering
-			\only<1-2|handout:1>{%
-				\includegraphics[height=0.618\textheight]{./images/Sagittal_brain_MRI}
+			\only<1-2>{%
+				\includegraphics[height=\imheight]{./images/Sagittal_brain_MRI}
 				\source{w.wiki/7g4}{\ccbysa}
 			}
-			\only<3|handout:2>{%
+			\only<3>{%
 				\begin{tikzpicture}[remember picture,overlay]%
 					\node at (current page.center){%
-						\mode<beamer>{\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/mouse_skull/mouse_skull}{000}{236}}
-						\mode<handout>{\includegraphics[width=\paperwidth]{./movies/mouse_skull/mouse_skull075}}
+						\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/mouse_skull/mouse_skull}{000}{236}%
 					};%
 				\end{tikzpicture}%
 			}
@@ -235,14 +226,8 @@
 \begin{frame}
 	\frametitle{CT-Scanner}
 	\centering
-	\mode<beamer>{%
-		\animategraphics[loop,autoplay,height=0.618\textheight,every=\everyframe]{24}{./movies/ct-scanner/ct-scanner0}{001}{480}%
-		\source{youtu.be/2CWpZKuy-NE}{}%
-		}
-	\mode<handout>{%
-		\includegraphics[height=0.618\textheight]{./movies/ct-scanner/ct-canner0001}%
-		\source{youtu.be/2CWpZKuy-NE}{}%
-		}
+	\animategraphics[loop,autoplay,height=\imheight,every=\everyframe]{24}{./movies/ct-scanner/ct-scanner0}{001}{480}%
+	\source{youtu.be/2CWpZKuy-NE}{}%
 	\note{From \href{https://www.bruker.com/products/microtomography/micro-ct-for-sample-scanning/x-ray-micro-ct-microtomography.html}:
 		Micro computed tomography or micro-CT is x-ray imaging in 3D, by the same method used in hospital CT (or CAT) scans, but on a small scale with massively increased resolution.
 		It really represents 3D microscopy, where very fine scale internal structure of objects is imaged non-destructively.
@@ -250,12 +235,12 @@
 \end{frame}
 
 \renewcommand{\imwidth}{\columnwidth}
-\begin{frame}[label=currentsadfasd]
+\begin{frame}
 	\frametitle{Why \uct?}
 	\begin{columns}
 		\begin{column}{0.49\linewidth}
 			% https://www.cancerimagingarchive.net/nbia-search/?saved-cart=nbia-76761575299081509
-			\only<1-4|handout:1-4>{%
+			\only<1-4>{%
 				\pgfmathsetlength{\imagewidth}{\imwidth}%
 				\pgfmathsetlength{\imagescale}{\imagewidth/512}%
 				\def\x{316}% scalebar-x starting at golden ratio of image width of 512px = 316
@@ -267,14 +252,14 @@
 					\draw[|-|,white,shadowed] (\x,\y) -- (\x+102.4,\y) node [midway,above] {\shadowtext{\SI{5}{\centi\meter}}};
 				\end{tikzpicture}%
 			}%
-			\only<5|handout:0>{%
+			\only<5>{%
 				\pgfmathsetlength{\imagewidth}{\imwidth}%
 				\pgfmathsetlength{\imagescale}{\imagewidth/512}%
 				\def\x{316}% scalebar-x starting at golden ratio of image width of 512px = 316
 				\def\y{361}% scalebar-y at 90% of image height of 401px = 361
 				\def\mag{5}% magnification of inset
 				\def\size{100}% size of inset
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+				\begin{tikzpicture}[x=\imagescale,y=-\imagescale,spy using outlines={rectangle,magnification=\mag,size=\size,connect spies}]
 					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/comparison/MAX_human}};
 					\spy [red] on (102,342) in node at (256,201) [anchor=center];
 					% 512.000px = 250.0096mm -> 100px = 48830.000um -> 1.024px = 500um, 0.205px = 100um
@@ -282,7 +267,7 @@
 				\end{tikzpicture}%
 			}%
 			\renewcommand{\imwidth}{0.1554\columnwidth}%			
-			\only<6|handout:5>{%
+			\only<6>{%
 				\centering
 				\pgfmathsetlength{\imagewidth}{\imwidth}%
 				\pgfmathsetlength{\imagescale}{\imagewidth/512}%
@@ -297,7 +282,7 @@
 			\sourcecite{Clark2013}{Subject \emph{C3L-02465}}
 		\end{column}%
 		\begin{column}{0.49\linewidth}
-			\only<1|handout:1>{%
+			\only<1>{%
 				\pgfmathsetlength{\imagewidth}{\imwidth}%
 				\pgfmathsetlength{\imagescale}{\imagewidth/3295}%
 				\def\x{2036}% scalebar-x starting at golden ratio of image width of 3295px = 2036
@@ -310,7 +295,7 @@
 				\end{tikzpicture}%
 			}%
 			\renewcommand{\imwidth}{0.1\columnwidth}%
-			\only<2|handout:2>{%
+			\only<2>{%
 				\centering
 				\pgfmathsetlength{\imagewidth}{\imwidth}%
 				\pgfmathsetlength{\imagescale}{\imagewidth/54}%
@@ -325,7 +310,7 @@
 				\end{tikzpicture}%
 			}%
 			\renewcommand{\imwidth}{\columnwidth}
-			\only<3|handout:3>{%
+			\only<3>{%
 				\centering
 				\pgfmathsetlength{\imagewidth}{\imwidth}%
 				\pgfmathsetlength{\imagescale}{\imagewidth/54}%
@@ -339,7 +324,7 @@
 					%\draw[color=red, anchor=south west] (0,24) node [fill=white, semitransparent] {Legend} node {Legend};
 				\end{tikzpicture}%
 			}%
-			\only<4|handout:4>{%
+			\only<4>{%
 				\pgfmathsetlength{\imagewidth}{\imwidth}%
 				\pgfmathsetlength{\imagescale}{\imagewidth/3295}%
 				\def\x{2036}% scalebar-x starting at golden ratio of image width of 3295px = 2036
@@ -350,21 +335,21 @@
 					\draw[|-|,white,shadowed] (\x,\y) -- (\x+628.14,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
 				\end{tikzpicture}%
 			}%
-			\only<5|handout:0>{%
+			\only<5>{%
 				\pgfmathsetlength{\imagewidth}{\imwidth}%
 				\pgfmathsetlength{\imagescale}{\imagewidth/3295}%
 				\def\x{2036}% scalebar-x starting at golden ratio of image width of 3295px = 2036
 				\def\y{1343}% scalebar-y at 90% of image height of 1492px = 1343
 				\def\mag{5}% magnification of inset
 				\def\size{100}% size of inset
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+				\begin{tikzpicture}[x=\imagescale,y=-\imagescale,spy using outlines={rectangle,magnification=\mag,size=\size,connect spies}]
 					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/comparison/MAX_mouse}};
 					\spy [red] on (352,1116) in node at (1648,746) [anchor=center];
 					% 3295.000px = 26.2282mm -> 100px = 796.000um -> 62.814px = 500um, 12.563px = 100um
 					\draw[|-|,white,shadowed] (\x,\y) -- (\x+628.14,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
 				\end{tikzpicture}%
 			}%
-			\only<6|handout:5>{%
+			\only<6>{%
 				\pgfmathsetlength{\imagewidth}{\imwidth}%
 				\pgfmathsetlength{\imagescale}{\imagewidth/3295}%
 				\def\x{2036}% scalebar-x starting at golden ratio of image width of 3295px = 2036
@@ -378,13 +363,6 @@
 		\end{column}
 	\end{columns}
 \end{frame}
-\note{The human head scan was downloaded from the \href{https://www.cancerimagingarchive.net}{[Cancer Imaging Archive}{Cancer Imaging Archive}.
-	We loaded the DICOM slices in Fiji, resliced it to show it from the side and then used to generate an MIP.
-	According to the DICOM tags, the voxel size is \SI{0.4883x0.4883x0.625}{\milli\meter\cubed}, the image size is 512\(\times\)512 pixels.
-	The mouse head is the same as shown in the early animation.
-	The files from the early animation are resized 0.25 times, so we used the original dataset (Mouse1265\_Skull\_Gaby\_TKI\_7\_96um\_Al05\_2K) for a reslice and the generation of the MIP.
-	The voxel size of the original data is 7.96 um, the image size is 3295\(\times\)1492 pixels.
-	}
 
 \subsection{Tomography today}
 \begin{frame}
@@ -408,14 +386,14 @@
 		\end{column}
 		\begin{column}{0.6\linewidth}
 			\centering
-			\includegraphics<1|handout:1>[height=\imheight]{./images/24324062640_751e011e1a_o}%
-			\only<1|handout:1>{\source{flic.kr/p/D4rbom}{\ccbyncsa}}
-			\includegraphics<2|handout:2>[width=\imwidth]{./images/2214}%
-			\only<2|handout:2>{\source{bruker.com/skyscan2214}{}}
-			\includegraphics<3|handout:3>[width=\imwidth]{./images/1272}%
-			\only<3|handout:3>{\source{bruker.com/skyscan1272}{}}
-			\includegraphics<4|handout:4>[width=\imwidth]{./images/4563733710_f632792416_b}%
-			\only<4|handout:4>{\source{flic.kr/p/7Xhk2Y}{\ccbync}}
+			\includegraphics<1>[height=\imheight]{./images/24324062640_751e011e1a_o}%
+			\only<1>{\source{flic.kr/p/D4rbom}{\ccbyncsa}}
+			\includegraphics<2>[width=\imwidth]{./images/2214}%
+			\only<2>{\source{bruker.com/skyscan2214}{}}
+			\includegraphics<3>[width=\imwidth]{./images/1272}%
+			\only<3>{\source{bruker.com/skyscan1272}{}}
+			\includegraphics<4>[width=\imwidth]{./images/4563733710_f632792416_b}%
+			\only<4>{\source{flic.kr/p/7Xhk2Y}{\ccbync}}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -445,8 +423,8 @@
 		\begin{column}{0.49\linewidth}
 			\centering
 			\only<1>{\input{animations/microCT}}%
-			\only<2|handout:0>{\input{animations/microCT_lr}}%
-			\only<3|handout:0>{\input{animations/microCT_hr}}%
+			\only<2>{\input{animations/microCT_lr}}%
+			\only<3>{\input{animations/microCT_hr}}%
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -454,14 +432,14 @@
 \begin{frame}
 	\frametitle{What is happening?}
 	\centering
-	\includegraphics[height=0.618\textheight]{./images/3D_Computed_Tomography}
+	\includegraphics[height=\imheight]{./images/3D_Computed_Tomography}
 	\source{w.wiki/7g3}{\ccbysa}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Examples}
 	\centering
-	\only<1|handout:1>{%
+	\only<1>{%
 		\pgfmathsetlength{\imagewidth}{0.9\linewidth}%
 		\pgfmathsetlength{\imagescale}{\imagewidth/3295}%
 		\def\x{2036}% scalebar-x starting at golden ratio of image width of 3295px = 2036
@@ -473,7 +451,7 @@
 			\draw[|-|,white,shadowed] (\x,\y) -- (\x+628.14,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
 		\end{tikzpicture}%
 	}%
-	\only<3|handout:2>{%
+	\only<2>{%
 		\pgfmathsetlength{\imagewidth}{0.618\linewidth}%
 		\pgfmathsetlength{\imagescale}{\imagewidth/690}%
 		\def\x{426}% scalebar-x starting at golden ratio of image width of 690px = 426
@@ -485,10 +463,10 @@
 			\draw[|-|,white,shadowed] (\x,\y) -- (\x+92.59,\y) node [midway,above] {\shadowtext{\SI{1}{\milli\meter}}};
 		\end{tikzpicture}%
 	}
-	\only<5|handout:0>{%
+	\only<3>{%
 		\animategraphics[autoplay,loop,width=0.618\linewidth,every=\everyframe]{24}{./movies/shell/Muschel_klein}{0150}{431}
 	}
-	\only<6|handout:4>{%
+	\only<4>{%
 		\pgfmathsetlength{\imagewidth}{0.42\linewidth}%
 		\pgfmathsetlength{\imagescale}{\imagewidth/1224}%
 		\def\x{756}% scalebar-x starting at golden ratio of image width of 1224px = 756
@@ -500,7 +478,7 @@
 			\draw[|-|,white,shadowed] (\x,\y) -- (\x+222.222,\y) node [midway,above] {\shadowtext{\SI{500}{\micro\meter}}};
 		\end{tikzpicture}%
 	}
-	\only<7|handout:5>{%
+	\only<5>{%
 		\pgfmathsetlength{\imagewidth}{0.55\linewidth}%
 		\pgfmathsetlength{\imagescale}{\imagewidth/708}%
 		\def\x{438+150}% scalebar-x starting at golden ratio of image width of 708px = 438
@@ -520,64 +498,61 @@
 	\frametitle{Projections}
 	\centering
 	% Movie frames generated with https://github.com/habi/Lecture.Microtomography/blob/master/Notebooks/FromProjectionsToReconstructions.ipynb
-	\mode<beamer>{\animategraphics[autoplay,loop,height=\imheight,every=\everyframe]{24}{./movies/scan/projections/KP-TNIKWT02_240_projections_of_940_800_px_}{000}{313}}
-	\mode<handout>{\includegraphics[height=\imheight]{./movies/scan/projections/KP-TNIKWT02_240_projections_of_940_800_px_000}}
+	\animategraphics[autoplay,loop,height=\imheight,every=\everyframe]{24}{./movies/scan/projections/KP-TNIKWT02_240_projections_of_940_800_px_}{000}{313}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Projections}
-	\begin{itemize}
-		\item A (micro-focus) x-ray source illuminates the object
-		\item The x-rays penetrate the sample and are attenuated
-		\item A scintillator converts the x-rays to visible light
-		\item A (planar) x-ray detector collects (magnified) projection images.
-		\item The projections are recorded on disk
-	\end{itemize}
-\end{frame}
+%\begin{frame}
+%	\frametitle{Projections}
+%	\begin{itemize}
+%		\item A (micro-focus) x-ray source illuminates the object
+%		\item The x-rays penetrate the sample and are attenuated
+%		\item A scintillator converts the x-rays to visible light
+%		\item A (planar) x-ray detector collects (magnified) projection images.
+%		\item The projections are recorded on disk
+%	\end{itemize}
+%\end{frame}
 
 \begin{frame}
 	\frametitle{Reconstructions}
 	\centering
 	% Movie frames generated with https://github.com/habi/Lecture.Microtomography/blob/master/Notebooks/FromProjectionsToReconstructions.ipynb
-	\mode<beamer>{\animategraphics[autoplay,palindrome,height=\imheight,every=\everyframe]{24}{./movies/scan/reconstructions/KP-TNIKWT02_240_reconstructions_of_556_800_px_}{000}{277}}
-	\mode<handout>{\includegraphics[height=\imheight]{./movies/scan/reconstructions/KP-TNIKWT02_240_reconstructions_of_556_800_px_000}}
+	\animategraphics[autoplay,palindrome,height=\imheight,every=\everyframe]{24}{./movies/scan/reconstructions/KP-TNIKWT02_240_reconstructions_of_556_800_px_}{000}{277}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Reconstructions}
-	\begin{itemize}
-		\item Based on hundreds of angular views acquired while the object rotates, a computer synthesizes a stack of virtual cross section slices through the object.
-		\item Radon Transformation
-		\item Filtered back projection
-		\item Fan beam reconstruction
-		\item Corrections (beam hardening, etc.)
-		\item Writing to stack
-	\end{itemize}
-\end{frame}
+%\begin{frame}
+%	\frametitle{Reconstructions}
+%	\begin{itemize}
+%		\item Based on hundreds of angular views acquired while the object rotates, a computer synthesizes a stack of virtual cross section slices through the object.
+%		\item Radon Transformation
+%		\item Filtered back projection
+%		\item Fan beam reconstruction
+%		\item Corrections (beam hardening, etc.)
+%		\item Writing to stack
+%	\end{itemize}
+%\end{frame}
 
 \begin{frame}
 	\frametitle{Visualization}
 	\begin{tikzpicture}[remember picture,overlay]%
 	\node at (current page.center){%
-		\mode<beamer>{\animategraphics[autoplay,loop,height=\paperheight,every=\everyframe]{24}{./movies/scan/visualization/lung}{000}{240}}%
-		\mode<handout>{\includegraphics[height=\paperheight]{./movies/scan/visualization/lung000}}%
+		\animategraphics[autoplay,loop,height=\paperheight,every=\everyframe]{24}{./movies/scan/visualization/lung}{000}{240}%
 		};%
 	\end{tikzpicture}%
 \end{frame}
 
-\begin{frame}
-	\frametitle{Visualization}
-	\begin{itemize}
-		\item Based on the reconstructions the computer synthesizes a three-dimensional view of the scanned sample
-	\end{itemize}
-\end{frame}
+%\begin{frame}
+%	\frametitle{Visualization}
+%	\begin{itemize}
+%		\item Based on the reconstructions the computer synthesizes a three-dimensional view of the scanned sample
+%	\end{itemize}
+%\end{frame}
 
 \section{What about those teeth?}
 \begin{frame}
 	\frametitle{Tooth morphology}
 	\begin{tikzpicture}[remember picture,overlay]%
 		\node at (current page.center){%
-			\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image}{0000}{0179}%
+			\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image0}{000}{474}%
 			};%
 	\end{tikzpicture}%
 \end{frame}
@@ -608,22 +583,22 @@
 					\item<5-> Foramen geometry and size, according to~\citeauthor{Wolf2017}~\cite{Wolf2017}
 				\end{itemize}
 				
-				\item<6> \emph{Reproducible} analysis~\cite{Haberthur2020a}, you can click a button to redo it yourself
+				\item<6-> \emph{Reproducible} analysis~\cite{Haberthur2020a}~\onslide<7>{, \eg can \href{https://mybinder.org/v2/gh/habi/zmk-tooth-cohort/master?filepath=ToothAnalysis.ipynb}{click a button to double-check} or \href{https://nbviewer.jupyter.org/github/habi/zmk-tooth-cohort/blob/master/ToothAnalysis.ipynb}{view it yourself}}
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.49\linewidth}
 			\only<1>{%
 				\centering
-				\includegraphics[height=.7\textheight]{./images/bucketofteeth}%
+				\includegraphics[height=\imheight]{./images/bucketofteeth}%
 				}%
 			\only<2>{%
-				\lstinputlisting[linerange={2-5,17-17,19-23,29-31,34-34,38-40,51-51,58-59}]{./logfiles/Tooth045.log}%
+				\lstinputlisting[linerange={2-4,15-15,17-19,28-30,36-37,40-40,44-44,53-54}]{./logfiles/Tooth045.log}%
 				}%
 			\only<3>{%
+				Scanned teeth with the \emph{sample changer} on the SkyScan 1272
 				In total:
 				\begin{itemize}
-					\item Sample changer
-					\item 13 days of \uct scanning
+					\item 13 days of \emph{continuous} \uct scanning
 					\item \SI{819}{\giga\byte} of raw data\newline\num{230648} TIFF projections
 					\item \SI{326}{\giga\byte} of raw data\newline\num{282062} PNG reconstructions
 				\end{itemize}					
@@ -648,8 +623,8 @@
 \begin{frame}[label=current]
 	\frametitle{\uct imaging}
 	\centering
-	\includegraphics<1>[height=0.7\textheight]{./images/{{ScanOverviews.104}}}%
-	\includegraphics<2>[height=0.7\textheight]{./images/{{ScanOverviews.24}}}%
+	\includegraphics<1>[height=\imheight]{./images/{{ScanOverviews.104}}}%
+	\includegraphics<2>[height=\imheight]{./images/{{ScanOverviews.24}}}%
 \end{frame}	
 	
 \subsection{Image processing}
@@ -691,14 +666,26 @@
 	\end{columns}		
 \end{frame}
 
+\begin{frame}
+	\frametitle{Tooth morphology}
+	\begin{tikzpicture}[remember picture,overlay]%
+		\node at (current page.center){%
+			\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full-slices/image0}{000}{466}%
+			};%
+	\end{tikzpicture}%
+\end{frame}
+
 \begin{frame}[label=current]
 	\frametitle{Detection of enamel-dentin border}
 	\centering
 	\only<1>{%
-		\includegraphics[height=0.7\textheight]{/media/habi/Fast_SSD/Talks/20201112_Anatomie_Seminar/images/tooth045/{{Tooth045.ExtractedSlices}}}%
+		\includegraphics[height=\imheight]{./images/briseno}%
 		}
 	\only<2>{%
-		\includegraphics[width=\linewidth]{/media/habi/Fast_SSD/Talks/20201112_Anatomie_Seminar/images/tooth045/{{Tooth045.Briseno}}}%
+		\includegraphics[height=\imheight]{./images/tooth045/{{Tooth045.ExtractedSlices}}}%
+		}
+	\only<3>{%
+		\includegraphics[width=\linewidth]{./images/tooth045/{{Tooth045.Briseno}}}%
 		}
 \end{frame}
 
@@ -706,7 +693,8 @@
 	\frametitle{Extraction of pulpa}
 	\begin{tikzpicture}[remember picture,overlay]%
 		\node at (current page.center){%
-			\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/pulpa-slices/image}{0000}{0179}%
+			\only<1>{\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/transparent-slices/image0}{000}{473}}%
+			\only<2>{\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/pulpa-slices/image0}{000}{476}}%
 			};%
 	\end{tikzpicture}%
 \end{frame}
@@ -715,10 +703,13 @@
 	\frametitle{Analysis of the physiological foramen geometry}
 	\centering
 	\only<1>{%
-		\animategraphics[palindrome,autoplay,height=0.7\textheight,every=\everyframe]{24}{./movies/tooth045/edt-axial/Tooth045_EDT_Axial_}{100}{199}%
+		\includegraphics[height=\imheight]{./images/foramen}%
 		}%
 	\only<2>{%
-		\animategraphics[palindrome,autoplay,height=0.7\textheight,every=\everyframe]{24}{./movies/tooth045/edt-coronal/Tooth045_EDT_Coronal_}{123}{213}%
+		\animategraphics[palindrome,autoplay,height=\imheight,every=\everyframe]{24}{./movies/tooth045/edt-axial/Tooth045_EDT_Axial_}{100}{199}%
+		}%
+	\only<3>{%
+		\animategraphics[palindrome,autoplay,height=\imheight,every=\everyframe]{24}{./movies/tooth045/edt-coronal/Tooth045_EDT_Coronal_}{123}{213}%
 		}		
 \end{frame}
 
@@ -742,13 +733,13 @@
 		\end{column}
 		\begin{column}{0.5\linewidth}
 			\centering
-			\includegraphics<1->[height=.7\textheight]{./images/team}
+			\includegraphics<1->[height=\imheight]{./images/team}
 		\end{column}
 	\end{columns}
-	\only<4|handout:0>{%
+	\only<4>{%
 		\begin{tikzpicture}[remember picture,overlay]%
 			\node at (current page.center){%
-				\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image}{0000}{0179}%
+				\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full-slices/image0}{000}{466}%
 				};%
 		\end{tikzpicture}%
 	}%
@@ -759,7 +750,7 @@
 	\begin{itemize}
 		\item This \textsc{beamer} presentation was crafted in \LaTeX\xspace with the (slightly adapted) \href{http://intern.unibe.ch/dienstleistungen/corporate_design_und_vorlagen/praesentationen/index_ger.html}{template from \emph{Corporate Design und Vorlagen} of the University of Bern}.
 		\begin{itemize}
-			\item \href{https://github.com/habi/20201112_Anatomie_Seminar}{Fullly reproducible source: git.io/JkJ5w}
+			\item \href{https://github.com/habi/20201112_Anatomie_Seminar}{Fully reproducible source: git.io/JkJ5w}
 %			\item The \LaTeX\xspace code is automatically compiled with a \href{https://github.com/actions}{GitHub action}\footnote{Details on how this works are specified in a \href{https://github.com/habi/latex-test/}{small test repository here: git.io/JeOOj}} to a \href{https://habi.github.io/Lecture.Microtomography/XRayMicroTomography.Handout.pdf}{(handout) PDF which you can access here: git.io/JeQxO}
 		\end{itemize}
 		\item Did you spot an error?
@@ -771,11 +762,11 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[label=current]
 	\frametitle{References}
 	% Make the references continuously smaller :)
 	%\renewcommand*{\bibfont}{\small}
-	%\renewcommand*{\bibfont}{\footnotesize}
+	\renewcommand*{\bibfont}{\footnotesize}
 	%\renewcommand*{\bibfont}{\scriptsize}
 	%\renewcommand*{\bibfont}{\tiny}
 	\setbeamertemplate{bibliography item}{\insertbiblabel}
