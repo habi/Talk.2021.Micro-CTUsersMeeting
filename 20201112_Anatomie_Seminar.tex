@@ -166,16 +166,19 @@
 	\frametitle{Grüessech!}
 	\begin{itemize}
 		\item Office \href{http://osm.org/go/0CZwlGp3A?m}{B311} | \href{mailto:haberthuer@ana.unibe.ch?subject=Feedback\%20from\%20the\%20(micro)-tomography\%20lecture}{haberthuer@ana.unibe.ch}
-		\item Physicist by trade with a \href{https://boris.unibe.ch/2619/}{PhD in high resolution imaging of the lung} at the Institute of Anatomy
-		\item Post-Doc I: \href{https://www.psi.ch/sls/tomcat/}{TOMCAT}, \href{https://www.psi.ch/sls/}{Swiss Light Source}, \href{https://www.psi.ch/}{Paul Scherrer Institute}
-		\item Post-Doc II: \uct-group, \href{https://ana.unibe.ch}{Institute of Anatomy} (Ruslan Hlushchuk, David Haberthür and Oleksiy-Zakhar Khoma)
+		\item Physicist by trade
+		\begin{itemize}
+			\item \href{https://boris.unibe.ch/2619/}{PhD in high resolution imaging of the lung}
+			\item Post-Doc I: \href{https://www.psi.ch/sls/tomcat/}{TOMCAT}, \href{https://www.psi.ch/sls/}{Swiss Light Source}, \href{https://www.psi.ch/}{Paul Scherrer Institute}
+			\item Post-Doc II: \uct-group, \href{https://ana.unibe.ch}{Institute of Anatomy} (Ruslan Hlushchuk, David Haberthür, Oleksiy-Zakhar Khoma and Tim Hoessly)
+		\end{itemize}
 		\item Biomedical imaging and research
 		\begin{itemize}
 			\item microangioCT~\cite{Hlushchuk2018}: Tumor vasculature, angiogenesis in the heart, musculature and bones
-			\item Cancer research: Melanoma
+			\item Cancer research: Melanoma \& lung tumors
 			\item Physiology: Zebrafish musculature and gills~\cite{MesserliAaldijk2020}			
-			\item Lung tumor detection and classification
 			\item Computer science: Automate \emph{all} the things~\cite{Haberthur2020}
+			\item Lung tumor detection and classification
 		\end{itemize}
 	\item<1-> SkyScan 1172 \& 1272 \uncover<2->{\& 2214}							
 	\end{itemize}
@@ -214,7 +217,7 @@
 	\end{columns}
 \end{frame}
 	
-\section{Imaging}
+\section{(micro)Tomography}
 \begin{frame}
 	\frametitle{Scale}
 	\centering
@@ -222,7 +225,6 @@
 	\sourcelink{www.mic.unibe.ch/organisation.php}{Yury Belyaev, MIC}{slide from internal seminar presentation}
 \end{frame}
 
-\section{Tomography}
 \begin{frame}
 	\frametitle{CT-Scanner}
 	\centering
@@ -364,7 +366,6 @@
 	\end{columns}
 \end{frame}
 
-\subsection{Tomography today}
 \begin{frame}
 	\frametitle{Machinery}
 	\begin{columns}
@@ -492,7 +493,6 @@
 	}
 \end{frame}
 
-\section{A scan, from start to finish}
 \renewcommand{\imwidth}{0.49\linewidth}
 \begin{frame}
 	\frametitle{Projections}
@@ -557,7 +557,6 @@
 	\end{tikzpicture}%
 \end{frame}
 
-\subsection{Overview}
 \begin{frame}
 	\frametitle{Internal morphology of human teeth}
 	\begin{itemize}
@@ -581,8 +580,7 @@
 				\begin{itemize}
 					\item<4-> Root canal  morphology, according to~\citeauthor{Briseno-Marroquin2015}~\cite{Briseno-Marroquin2015}
 					\item<5-> Foramen geometry and size, according to~\citeauthor{Wolf2017}~\cite{Wolf2017}
-				\end{itemize}
-				
+				\end{itemize}		
 				\item<6-> \emph{Reproducible} analysis~\cite{Haberthur2020a}~\onslide<7>{, \eg can \href{https://mybinder.org/v2/gh/habi/zmk-tooth-cohort/master?filepath=ToothAnalysis.ipynb}{click a button to double-check} or \href{https://nbviewer.jupyter.org/github/habi/zmk-tooth-cohort/blob/master/ToothAnalysis.ipynb}{view it yourself}}
 			\end{itemize}
 		\end{column}
@@ -627,7 +625,7 @@
 	\includegraphics<2>[height=\imheight]{./images/{{ScanOverviews.24}}}%
 \end{frame}	
 	
-\subsection{Image processing}
+\subsection{(hands-off) Image processing}
 \begin{frame}[label=curret]
 	\frametitle{Dataset cropping}
 	\begin{columns}
@@ -670,7 +668,8 @@
 	\frametitle{Tooth morphology}
 	\begin{tikzpicture}[remember picture,overlay]%
 		\node at (current page.center){%
-			\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full-slices/image0}{000}{466}%
+			\only<1>{\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image0}{000}{474}}%
+			\only<2>{\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full-slices/image0}{000}{466}}%
 			};%
 	\end{tikzpicture}%
 \end{frame}
@@ -694,7 +693,7 @@
 	\begin{tikzpicture}[remember picture,overlay]%
 		\node at (current page.center){%
 			\only<1>{\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/transparent-slices/image0}{000}{473}}%
-			\only<2>{\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/pulpa-slices/image0}{000}{476}}%
+			\only<2>{\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/pulpa/image0}{000}{476}}%
 			};%
 	\end{tikzpicture}%
 \end{frame}
@@ -720,7 +719,7 @@
 		\begin{itemize}
 			\item Topographic and clinical Anatomy
 				\begin{itemize}
-					\item Valentin Djonov, Ruslan Hlushchuk, Oleksiy-Zakhar Khoma and Jennifer Fazzari
+					\item Valentin Djonov, Ruslan Hlushchuk, Oleksiy-Zakhar Khoma and Jennifer Fazzari~\cite{Haberthur2020}
 				\end{itemize}
 			\item zmk bern – Zahnmedizinische Kliniken
 				\begin{itemize}
