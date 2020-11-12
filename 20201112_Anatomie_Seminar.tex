@@ -5,7 +5,6 @@
 \usetheme{UniBern}
 
 \title{How to study the internals of +100 human teeth with X-ray microtomography}
-\subtitle{subtitle}
 \author{David Haberthür}
 \date{November 12, 2020 | Internal seminar at the Institute of Anatomy}
 
@@ -21,7 +20,7 @@
 	per-mode=symbol,
 	per-symbol=/]{siunitx}
 \usepackage{xspace}
-\usepackage[missing=main]{gitinfo2} % GitHub Actions don't pull in the commit hash, so we just show `Master'
+\usepackage[missing=main]{gitinfo2} % GitHub Actions don't pull in the commit hash, so we just show the main branch as placeholder
 \usepackage[backend=biber,
 	style=numeric,
 	url=false,
@@ -32,6 +31,7 @@
 \addbibresource{~/Documents/library.bib}
 \usepackage{ccicons}
 \usepackage{animate}
+\usepackage{standalone} % for CT animations
 \usepackage{tikz}
 	\usetikzlibrary{spy}
 	\tikzset{shadowed/.style={preaction={transform canvas={shift={(1pt,-1pt)}},draw=ubRed}}}
@@ -49,7 +49,7 @@
 \usepackage{microtype}
 
 % Some often used abbreviations/commands
-\newcommand{\everyframe}{111} % use only every nth frame for the animations
+\newcommand{\everyframe}{1} % use only every nth frame for the animations
 \newcommand{\imwidth}{\linewidth}% set global image width
 \newcommand{\imheight}{0.618\paperheight}% set global image height
 \newlength\imagewidth% needed for scalebars
@@ -162,22 +162,24 @@
 	\end{frame}%
 }
 
-\begin{frame}[label=currentasdf]
+\begin{frame}
 	\frametitle{Grüessech!}
 	\begin{itemize}
-		\item Office \href{http://osm.org/go/0CZwlGp3A?m}{B311} | \href{mailto:haberthuer@ana.unibe.ch?subject=Feedback\%20from\%20the\%20(micro)-tomography\%20lecture}{haberthuer@ana.unibe.ch}
-		\item Physicist by trade with a \href{https://boris.unibe.ch/2619/}{PhD in high resolution imaging of the lung} at the Institute of Anatomy
-		\item Post-Doc I: \href{https://www.psi.ch/sls/tomcat/}{TOMCAT}, \href{https://www.psi.ch/sls/}{Swiss Light Source}, \href{https://www.psi.ch/}{Paul Scherrer Institute}
-		\item Post-Doc II: \uct-group, \href{https://ana.unibe.ch}{Institute of Anatomy} (Ruslan Hlushchuk, David Haberthür and Oleksiy-Zakhar Khoma)
+		\item David
+		\begin{itemize}
+			\item Physicist by trade
+			\item \href{https://boris.unibe.ch/2619/}{PhD in high resolution imaging of the lung}
+			\item Post-Doc I: \href{https://www.psi.ch/sls/tomcat/}{TOMCAT}, \href{https://www.psi.ch/sls/}{Swiss Light Source}, \href{https://www.psi.ch/}{Paul Scherrer Institute}
+			\item Post-Doc II: \uct-group, Topographic and clinical Anatomy with Ruslan Hlushchuk, Oleksiy-Zakhar Khoma and Tim Hoessly
+		\end{itemize}
 		\item Biomedical imaging and research
 		\begin{itemize}
 			\item microangioCT~\cite{Hlushchuk2018}: Tumor vasculature, angiogenesis in the heart, musculature and bones
-			\item Cancer research: Melanoma
 			\item Physiology: Zebrafish musculature and gills~\cite{MesserliAaldijk2020}			
-			\item Lung tumor detection and classification
 			\item Computer science: Automate \emph{all} the things~\cite{Haberthur2020}
+			\item Lung tumor detection and classification
 		\end{itemize}
-	\item<1-> SkyScan 1172 \& 1272 \uncover<2->{\& 2214}							
+	%\item<1-> SkyScan 1172 \& 1272 \uncover<2->{\& 2214}							
 	\end{itemize}
 \end{frame}
 
@@ -214,7 +216,7 @@
 	\end{columns}
 \end{frame}
 	
-\section{Imaging}
+\section{(micro)Tomography}
 \begin{frame}
 	\frametitle{Scale}
 	\centering
@@ -222,7 +224,6 @@
 	\sourcelink{www.mic.unibe.ch/organisation.php}{Yury Belyaev, MIC}{slide from internal seminar presentation}
 \end{frame}
 
-\section{Tomography}
 \begin{frame}
 	\frametitle{CT-Scanner}
 	\centering
@@ -234,6 +235,7 @@
 		No sample preparation, no staining, no thin slicing - a single scan will image your sample's complete internal 3D structure at high resolution, plus you get your intact sample back at the end!}
 \end{frame}
 
+\subsection{Why \uct?}
 \renewcommand{\imwidth}{\columnwidth}
 \begin{frame}
 	\frametitle{Why \uct?}
@@ -362,13 +364,20 @@
 			}%
 		\end{column}
 	\end{columns}
+\note{The human head scan was downloaded from the \href{https://www.cancerimagingarchive.net}{[Cancer Imaging Archive}{Cancer Imaging Archive}.
+	We loaded the DICOM slices in Fiji, resliced it to show it from the side and then used to generate an MIP.
+	According to the DICOM tags, the voxel size is \SI{0.4883x0.4883x0.625}{\milli\meter\cubed}, the image size is 512\(\times\)512 pixels.
+	The mouse head is the same as shown in the early animation.
+	The files from the early animation are resized 0.25 times, so we used the original dataset (Mouse1265\_Skull\_Gaby\_TKI\_7\_96um\_Al05\_2K) for a reslice and the generation of the MIP.
+	The voxel size of the original data is 7.96 um, the image size is 3295\(\times\)1492 pixels, e.g. 26.32 mm.
+	}
 \end{frame}
 
-\subsection{Tomography today}
+\frametitle{Computed tomography}
 \begin{frame}
 	\frametitle{Machinery}
 	\begin{columns}
-		\begin{column}{0.4\linewidth}
+		\begin{column}{0.39\linewidth}
 			\begin{itemize}
 				\item<1-> Hospital CT
 				\begin{itemize}
@@ -397,14 +406,9 @@
 		\end{column}
 	\end{columns}
 \end{frame}
-\note{FAN BEAM -> BRUKER\newline
-	PARALLEL BEAM -> TOMCAT\newline
-	HELICAL/SPIRAL CT\newline
-	MULTISLICE CT -> HOSPITAL
-}
 
 \begin{frame}
-	\frametitle{Machinery}
+	\frametitle{Computed tomography}
 	No matter what kind of machine, the basic principle is always the same
 	\begin{itemize}
 		\item an x-ray source
@@ -414,7 +418,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Machinery}
+	\frametitle{Computed tomography}
 	\begin{columns}
 		\begin{column}{0.49\linewidth}
 			\centering
@@ -429,13 +433,14 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}
-	\frametitle{What is happening?}
-	\centering
-	\includegraphics[height=\imheight]{./images/3D_Computed_Tomography}
-	\source{w.wiki/7g3}{\ccbysa}
-\end{frame}
+%\begin{frame}
+%	\frametitle{What is happening?}
+%	\centering
+%	\includegraphics[height=\imheight]{./images/3D_Computed_Tomography}
+%	\source{w.wiki/7g3}{\ccbysa}
+%\end{frame}
 
+\subsection{Examples}
 \begin{frame}
 	\frametitle{Examples}
 	\centering
@@ -492,8 +497,7 @@
 	}
 \end{frame}
 
-\section{A scan, from start to finish}
-\renewcommand{\imwidth}{0.49\linewidth}
+\subsection{A \uct scan, from start to finish}
 \begin{frame}
 	\frametitle{Projections}
 	\centering
@@ -560,30 +564,29 @@
 \subsection{Overview}
 \begin{frame}
 	\frametitle{Internal morphology of human teeth}
+	Collaboration with ZMK
 	\begin{itemize}
 		\item Numbers instead of just pretty images
 		\item Segmentation
-		\item Characterization
-		\item Reproducible and automated image analysis with Jupyter~\cite{Kluyver2016}
+		\item (Unbiased) Characterization
+		\item Reproducible and automated image analysis (\href{https://www.python.org/}{\faPython} in \href{https://jupyter.org/}{Jupyter}~\cite{Kluyver2016})
 	\end{itemize}
 \end{frame}
 
-\subsection{Protocol}
 \renewcommand{\imwidth}{\columnwidth}
-\begin{frame}[label=current]
+\begin{frame}
 	\frametitle{How?}
 	\begin{columns}
 		\begin{column}{0.49\linewidth}
 			\begin{itemize}
-				\item<1-> 104 extracted human permanent mandibular canines, stored in \SI{70}{\percent} ethanol
+				\item<1-> 104 extracted human permanent mandibular canines
 				\item<2-> \uct imaging
 				\item<4-> Morphology
 				\begin{itemize}
 					\item<4-> Root canal  morphology, according to~\citeauthor{Briseno-Marroquin2015}~\cite{Briseno-Marroquin2015}
 					\item<5-> Foramen geometry and size, according to~\citeauthor{Wolf2017}~\cite{Wolf2017}
-				\end{itemize}
-				
-				\item<6-> \emph{Reproducible} analysis~\cite{Haberthur2020a}~\onslide<7>{, \eg can \href{https://mybinder.org/v2/gh/habi/zmk-tooth-cohort/master?filepath=ToothAnalysis.ipynb}{click a button to double-check} or \href{https://nbviewer.jupyter.org/github/habi/zmk-tooth-cohort/blob/master/ToothAnalysis.ipynb}{view it yourself}}
+				\end{itemize}		
+				\item<6-> \emph{Reproducible} analysis~\cite{Haberthur2020a}\onslide<7>{, \eg you can \href{https://mybinder.org/v2/gh/habi/zmk-tooth-cohort/master?filepath=ToothAnalysis.ipynb}{click a button to double-check} or \href{https://nbviewer.jupyter.org/github/habi/zmk-tooth-cohort/blob/master/ToothAnalysis.ipynb}{view it yourself}}
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.49\linewidth}
@@ -595,12 +598,12 @@
 				\lstinputlisting[linerange={2-4,15-15,17-19,28-30,36-37,40-40,44-44,53-54}]{./logfiles/Tooth045.log}%
 				}%
 			\only<3>{%
-				Scanned teeth with the \emph{sample changer} on the SkyScan 1272
+				\emph{Sample changer} on the SkyScan 1272\newline
 				In total:
 				\begin{itemize}
 					\item 13 days of \emph{continuous} \uct scanning
 					\item \SI{819}{\giga\byte} of raw data\newline\num{230648} TIFF projections
-					\item \SI{326}{\giga\byte} of raw data\newline\num{282062} PNG reconstructions
+					\item \SI{326}{\giga\byte} data as input for analysis\newline\num{282062} PNG reconstructions
 				\end{itemize}					
 					}%		
 			\only<4>{%
@@ -615,26 +618,30 @@
 				\animategraphics[loop,autoplay,width=\linewidth,every=\everyframe]{24}{./movies/coder/coder-}{0}{133}%
 				\source{gph.is/2nqkple}{}%
 				}%
+			\only<7>{%
+				\centering
+				\href{https://mybinder.org/v2/gh/habi/zmk-tooth-cohort/master?filepath=ToothAnalysis.ipynb}{\includegraphics[height=\imheight]{./images/binder}}%
+				}%
 		\end{column}
 	\end{columns}
 \end{frame}
 
 \subsection{\uct imaging}
-\begin{frame}[label=current]
+\begin{frame}
 	\frametitle{\uct imaging}
 	\centering
 	\includegraphics<1>[height=\imheight]{./images/{{ScanOverviews.104}}}%
 	\includegraphics<2>[height=\imheight]{./images/{{ScanOverviews.24}}}%
 \end{frame}	
 	
-\subsection{Image processing}
-\begin{frame}[label=curret]
+\subsection{(hands-off) Image processing}
+\begin{frame}
 	\frametitle{Dataset cropping}
 	\begin{columns}
 		\begin{column}{0.309\linewidth}	
 			\begin{itemize}
-				\item<1-> Full datasets: \SI{326}{\giga\byte}
-				\item<2-> Cropped: \SI{115}{\giga\byte}
+				\item Full datasets: \SI{326}{\giga\byte}
+				\item \uncover<2->{Cropped: \SI{115}{\giga\byte}}
 			\end{itemize}
 		\end{column}	
 		\begin{column}{0.618\linewidth}
@@ -670,16 +677,18 @@
 	\frametitle{Tooth morphology}
 	\begin{tikzpicture}[remember picture,overlay]%
 		\node at (current page.center){%
-			\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full-slices/image0}{000}{466}%
+			\only<1>{\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image0}{000}{474}}%
+			\only<2>{\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full-slices/image0}{000}{466}}%
 			};%
 	\end{tikzpicture}%
 \end{frame}
 
-\begin{frame}[label=current]
+\begin{frame}
 	\frametitle{Detection of enamel-dentin border}
 	\centering
 	\only<1>{%
 		\includegraphics[height=\imheight]{./images/briseno}%
+		\sourcecite{Briseno-Marroquin2015}{Fig.~2}%
 		}
 	\only<2>{%
 		\includegraphics[height=\imheight]{./images/tooth045/{{Tooth045.ExtractedSlices}}}%
@@ -689,21 +698,22 @@
 		}
 \end{frame}
 
-\begin{frame}[label=current]
+\begin{frame}
 	\frametitle{Extraction of pulpa}
 	\begin{tikzpicture}[remember picture,overlay]%
 		\node at (current page.center){%
 			\only<1>{\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/transparent-slices/image0}{000}{473}}%
-			\only<2>{\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/pulpa-slices/image0}{000}{476}}%
+			\only<2>{\animategraphics[loop,autoplay,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/pulpa/image0}{000}{413}}%
 			};%
 	\end{tikzpicture}%
 \end{frame}
 
-\begin{frame}[label=current]
+\begin{frame}
 	\frametitle{Analysis of the physiological foramen geometry}
 	\centering
 	\only<1>{%
 		\includegraphics[height=\imheight]{./images/foramen}%
+		\sourcecite{Wolf2017}{Fig.~1}%
 		}%
 	\only<2>{%
 		\animategraphics[palindrome,autoplay,height=\imheight,every=\everyframe]{24}{./movies/tooth045/edt-axial/Tooth045_EDT_Axial_}{100}{199}%
@@ -713,7 +723,18 @@
 		}		
 \end{frame}
 
-\begin{frame}[label=currentasdfasdf]
+\section{\emph{Take to lunch}-message}
+\begin{frame}
+	\frametitle{Conclusion}
+	\begin{itemize}
+		\item Efficient use of time
+		\item Reproducible analysis with \emph{free and open-source software}
+		\item Objective analysis, \eg no operator bias
+		\item More teeth does not mean more (analysis) work
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Thanks!}
 	\begin{columns}
 		\begin{column}{0.5\linewidth}
@@ -746,31 +767,31 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{\href{https://en.wikipedia.org/wiki/Colophon_(publishing)}{Colophon}}
-	\begin{itemize}
-		\item This \textsc{beamer} presentation was crafted in \LaTeX\xspace with the (slightly adapted) \href{http://intern.unibe.ch/dienstleistungen/corporate_design_und_vorlagen/praesentationen/index_ger.html}{template from \emph{Corporate Design und Vorlagen} of the University of Bern}.
-		\begin{itemize}
-			\item \href{https://github.com/habi/20201112_Anatomie_Seminar}{Fully reproducible source: git.io/JkJ5w}
-%			\item The \LaTeX\xspace code is automatically compiled with a \href{https://github.com/actions}{GitHub action}\footnote{Details on how this works are specified in a \href{https://github.com/habi/latex-test/}{small test repository here: git.io/JeOOj}} to a \href{https://habi.github.io/Lecture.Microtomography/XRayMicroTomography.Handout.pdf}{(handout) PDF which you can access here: git.io/JeQxO}
-		\end{itemize}
-		\item Did you spot an error?
-		\begin{itemize}
-			\item \href{https://github.com/habi/20201112_Anatomie_Seminar/issues}{File an issue: git.io/JkJ5K}
-%			\item \href{https://github.com/habi/lecture.microtomography/pulls}{Submit a pull request: git.io/fjpPN}
-			\item \href{mailto:haberthuer@ana.unibe.ch?subject=Error\%20in\%20the\%20seminar\%20presentation\&body=https://xkcd.com/386/}{Send me an email: haberthuer@ana.unibe.ch}
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[label=current]
-	\frametitle{References}
-	% Make the references continuously smaller :)
-	%\renewcommand*{\bibfont}{\small}
-	\renewcommand*{\bibfont}{\footnotesize}
-	%\renewcommand*{\bibfont}{\scriptsize}
-	%\renewcommand*{\bibfont}{\tiny}
-	\setbeamertemplate{bibliography item}{\insertbiblabel}
-	\printbibliography
+	\frametitle{References \& \href{https://en.wikipedia.org/wiki/Colophon_(publishing)}{Colophon}}
+	\begin{columns}
+		\begin{column}{0.6\linewidth}
+			% Make the references continuously smaller :)
+			%\renewcommand*{\bibfont}{\small}
+			%\renewcommand*{\bibfont}{\footnotesize}
+			%\renewcommand*{\bibfont}{\scriptsize}
+			\renewcommand*{\bibfont}{\tiny}
+			\setbeamertemplate{bibliography item}{\insertbiblabel}
+			\printbibliography
+		\end{column}	
+		\begin{column}{0.4\linewidth}
+			\begin{itemize}
+				\item This \textsc{beamer} presentation was crafted in \LaTeX\xspace with the (slightly adapted) \href{http://intern.unibe.ch/dienstleistungen/corporate_design_und_vorlagen/praesentationen/index_ger.html}{template from \emph{Corporate Design und Vorlagen} of the University of Bern}.
+				\begin{itemize}
+					\item \href{https://github.com/habi/20201112_Anatomie_Seminar}{Fully reproducible source: git.io/JkJ5w}
+				\end{itemize}
+				\item Did you spot an error?
+				\begin{itemize}
+					\item \href{https://github.com/habi/20201112_Anatomie_Seminar/issues}{File an issue: git.io/JkJ5K}
+					\item \href{mailto:haberthuer@ana.unibe.ch?subject=Error\%20in\%20the\%20seminar\%20presentation\&body=https://xkcd.com/386/}{Send me an email: haberthuer@ana.unibe.ch}
+				\end{itemize}
+			\end{itemize}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \end{document}
