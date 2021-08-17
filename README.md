@@ -1,6 +1,8 @@
-# 20201112_Anatomie_Seminar
+# 20210902_ToScA
 
-My talk for the internal seminar at the Institute of Anatomy on November 12, 2020.
+My talk at the conference of the 'Tomography for Scientific Advancement society' (ToScA UK & Europe 2021](https://www.toscainternational.org/2021-ukeu)) on September 1, 2021.
 
-Heavily based on my [lecture on (micro)tomography](https://github.com/habi/lecture.microtomography), probably I could just have forked the repository.
-The first part of the talk is an introduction to microCT imaging, the second part is a rundown on [the tooth analysis method](https://habi.github.io/zmk-tooth-cohort-method-manuscript/) for the staff of the [Institute of Anatomy](https://www.ana.unibe.ch/index_eng.html).
+We are talking about [the tooth analysis method](https://habi.github.io/zmk-tooth-cohort-method-manuscript/) and present what we did there.
+
+Since I've told the story about the teeth before (in an internal seminar at the Institute of Anatomy), I just copied the repository of [said talk](https://github.com/habi/Talk.2020.AnatomyInternalSeminar) and updated from there.
+
