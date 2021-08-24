@@ -4,7 +4,7 @@
 \documentclass[aspectratio=169]{beamer}
 \usetheme{UniBern}
 
-\title{Automated segmentation and description of the internal morphology of human permanent teeth by means of micro-CT}
+\title{Automated segmentation and description of the internal morphology of human permanent teeth}
 \author{David Haberthür}
 \date{September 2, 2021 | ToScA UK \& Europe 2021}
 
@@ -20,18 +20,17 @@
 	per-mode=symbol,
 	per-symbol=/]{siunitx}
 \usepackage{xspace}
-\usepackage[missing=main]{gitinfo2} % GitHub Actions don't pull in the commit hash, so we just show the main branch as placeholder
+\usepackage{gitinfo2}
 \usepackage[backend=biber,
 	style=numeric,
 	url=false,
 	maxnames=1,
 	sorting=none
 	]{biblatex}
-%\addbibresource{~/P/Documents/library.bib}
-\addbibresource{../../Documents/library.bib}
+\addbibresource{~/P/Documents/library.bib}
+%\addbibresource{../../Documents/library.bib}
 \usepackage{ccicons}
 \usepackage{animate}
-\usepackage{standalone} % for CT animations
 \usepackage{tikz}
 	\usetikzlibrary{spy}
 	\tikzset{shadowed/.style={preaction={transform canvas={shift={(1pt,-1pt)}},draw=ubRed}}}
@@ -40,8 +39,6 @@
 	\shadowcolor{ubRed}
 \usepackage[absolute,overlay]{textpos} %for the \source* command	
 \usepackage{fontawesome5}
-\usepackage{standalone}
-\usepackage[version=4]{mhchem}
 \usepackage{listings}
 	\lstset{frame=single,
 	basicstyle=\tiny\ttfamily
@@ -49,7 +46,7 @@
 \usepackage{microtype}
 
 % Some often used abbreviations/commands
-\newcommand{\everyframe}{10} % use only every nth frame for the animations
+\newcommand{\everyframe}{333} % use only every nth frame for the animations
 \newcommand{\imwidth}{\linewidth}% set global image width
 \newcommand{\imheight}{0.618\paperheight}% set global image height
 \newlength\imagewidth% needed for scalebars
@@ -98,7 +95,7 @@
 \newdimen\progressbar@pbwd %progressbar width
 \newdimen\progressbar@rcircle % radius for the circle
 \newdimen\progressbar@tmpdim % auxiliary dimension
-\progressbar@pbwd=\linewidth
+\progressbar@pbwd=0.85\linewidth
 \progressbar@rcircle=1.5pt
 \def\progressbar@progressbar{%
 	\progressbar@tmpcounta=\insertframenumber
@@ -109,20 +106,21 @@
 	\par%
 	\begin{tikzpicture}%
 		\draw[ubGrey] (0,0) -- ++ (\progressbar@pbwd,0);
-		\filldraw[ubGrey] (\the\dimexpr\progressbar@tmpdim-\progressbar@rcircle\relax,.5\progressbar@pbht) circle (\progressbar@rcircle);
+		\draw[draw=ubRed,fill=ubGrey] (\the\dimexpr\progressbar@tmpdim-\progressbar@rcircle\relax,.5\progressbar@pbht) circle (\progressbar@rcircle);
 	\end{tikzpicture}%
-	v. \href{https://github.com/habi/20201112_Anatomie_Seminar/commit/\gitHash}{\gitAbbrevHash}\xspace|\xspace%
+	\hfill git.io/J0tjG\xspace|\xspace%
+	v. \href{https://github.com/habi/talk.2021.Tosca/commit/\gitHash}{\gitAbbrevHash}\xspace|\xspace%
 	p.\xspace\insertframenumber/\inserttotalframenumber%
-%	\hspace*{4ex}%
-	\vspace{0.7ex}
-	\par%
+	\hspace*{4ex}%
+	\vspace{0.5ex}%
+	%\par%
 }
-\addtobeamertemplate{footline}{}
+\addtobeamertemplate{footline}{}%
 {%
-	\begin{beamercolorbox}[wd=\paperwidth,center]{white}%
+	\begin{beamercolorbox}[wd=\paperwidth,center]{green}%
 		\progressbar@progressbar%
 	\end{beamercolorbox}%
-}
+}%
 \makeatother
 
 % Format bibliography for beamer
@@ -149,9 +147,6 @@
 % THIS IS A BIG HACK, IT SHOULD BE FIXED IN THE TEMPLATE
 \addtobeamertemplate{frametitle}{}{\vspace*{0.75em}}
 
-% Small citations as footnotes
-\setbeamerfont{footnote}{size=\tiny}
-
 \begin{document}
 % No footline on the title page
 % http://tex.stackexchange.com/a/18829/828 helps us to achieve that
@@ -170,26 +165,30 @@
 			\item Physicist by trade
 			\item \href{https://boris.unibe.ch/2619/}{PhD in high resolution imaging of the lung}
 			\item Post-Doc I: \href{https://www.psi.ch/sls/tomcat/}{TOMCAT}, \href{https://www.psi.ch/sls/}{Swiss Light Source}, \href{https://www.psi.ch/}{Paul Scherrer Institute}
-			\item Post-Doc II: \uct-group, Topographic and clinical Anatomy with Ruslan Hlushchuk, Oleksiy-Zakhar Khoma and Tim Hoessly
+			\item Post-Doc II: \uct-group, at the Institute of Anatomy of the University of Bern. With Ruslan Hlushchuk, Oleksiy-Zakhar Khoma and Tim Hoessly
 		\end{itemize}
-	\end{itemize}		
+	\end{itemize}
 \end{frame}
 
+\renewcommand{\imheight}{0.5\paperheight}% set global image height
 \begin{frame}[label=current]
 	\frametitle{Grüessech!}		
 	\begin{columns}
-		\begin{column}{0.49\linewidth}	
-		\begin{itemize}		
-			\item Biomedical imaging and research
+		\begin{column}{0.618\linewidth}	
 			\begin{itemize}
-				\item microangioCT~\cite{Hlushchuk2018}: Tumor vasculature, angiogenesis in the heart, musculature and bones
-				\item Physiology: Zebrafish musculature and gills~\cite{MesserliAaldijk2020}			
-				\item Computer science: Automate \emph{all} the things~\cite{Haberthur2020}
-				\item Lung tumor detection and classification
+				\item microangioCT~\cite{Hlushchuk2018}
+				\begin{itemize}
+					\item Angiogenesis in the heart, musculature~\cite{Nording2021} and bones
+					\item Vasculature in the (mouse) brain~\cite{Hlushchuk2020}, (human) nerve scaffolds~\cite{Wuthrich2020} and (human) skin flaps~\cite{Zubler2021}
+					\item Tumor vasculature
+				\end{itemize}
+				\item Zebrafish musculature and gills~\cite{MesserliAaldijk2020}
+				\item (Lung) tumor detection and metastasis classification~\cite{Trappetti2021}
+				\item Collaborations with museums and scientist at our institute~\cite{Halm2021} to scan a wide range of  specimens
+				\item Automate \emph{all} the things!~\cite{Haberthur2020}
 			\end{itemize}
-		\end{itemize}				
 		\end{column}
-		\begin{column}{0.49\linewidth}
+		\begin{column}{0.38\linewidth}
 			\centering
 			\includegraphics<1>[height=\imheight]{./images/1172}%
 			\only<1>{\source{brukersupport.com}{}}
@@ -201,270 +200,10 @@
 	\end{columns}
 \end{frame}
 
-
-\subsection{Why \uct?}
-\renewcommand{\imwidth}{\columnwidth}
-\begin{frame}
-	\frametitle{Why \uct?}
-	\begin{columns}
-		\begin{column}{0.49\linewidth}
-			% https://www.cancerimagingarchive.net/nbia-search/?saved-cart=nbia-76761575299081509
-			\only<1-4>{%
-				\pgfmathsetlength{\imagewidth}{\imwidth}%
-				\pgfmathsetlength{\imagescale}{\imagewidth/512}%
-				\def\x{316}% scalebar-x starting at golden ratio of image width of 512px = 316
-				\def\y{361}% scalebar-y at 90% of image height of 401px = 361
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/comparison/MAX_human}};
-					% 512.000px = 250.0096mm -> 100px = 48830.000um -> 1.024px = 500um, 0.205px = 100um
-					%\draw[|-|,blue,thick] (0,200) -- (512,200) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{250.0096}{\milli\meter} (512px) TEMPORARY!};
-					\draw[|-|,white,shadowed] (\x,\y) -- (\x+102.4,\y) node [midway,above] {\shadowtext{\SI{5}{\centi\meter}}};
-				\end{tikzpicture}%
-			}%
-			\only<5>{%
-				\pgfmathsetlength{\imagewidth}{\imwidth}%
-				\pgfmathsetlength{\imagescale}{\imagewidth/512}%
-				\def\x{316}% scalebar-x starting at golden ratio of image width of 512px = 316
-				\def\y{361}% scalebar-y at 90% of image height of 401px = 361
-				\def\mag{5}% magnification of inset
-				\def\size{100}% size of inset
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale,spy using outlines={rectangle,magnification=\mag,size=\size,connect spies}]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/comparison/MAX_human}};
-					\spy [red] on (102,342) in node at (256,201) [anchor=center];
-					% 512.000px = 250.0096mm -> 100px = 48830.000um -> 1.024px = 500um, 0.205px = 100um
-					\draw[|-|,white,shadowed] (\x,\y) -- (\x+102.4,\y) node [midway,above] {\shadowtext{\SI{5}{\centi\meter}}};
-				\end{tikzpicture}%
-			}%
-			\renewcommand{\imwidth}{0.1554\columnwidth}%			
-			\only<6>{%
-				\centering
-				\pgfmathsetlength{\imagewidth}{\imwidth}%
-				\pgfmathsetlength{\imagescale}{\imagewidth/512}%
-				\def\x{316}% scalebar-x starting at golden ratio of image width of 512px = 316
-				\def\y{361}% scalebar-y at 90% of image height of 401px = 361
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/comparison/MAX_human}};
-					% 512.000px = 250.0096mm -> 100px = 48830.000um -> 1.024px = 500um, 0.205px = 100um
-					\draw[|-|,white,shadowed] (\x,\y) -- (\x+102.4,\y) node [midway,above] {\shadowtext{\SI{5}{\centi\meter}}};
-				\end{tikzpicture}%
-			}%			
-			\sourcecite{Clark2013}{Subject \emph{C3L-02465}}
-		\end{column}%
-		\begin{column}{0.49\linewidth}
-			\only<1>{%
-				\pgfmathsetlength{\imagewidth}{\imwidth}%
-				\pgfmathsetlength{\imagescale}{\imagewidth/3295}%
-				\def\x{2036}% scalebar-x starting at golden ratio of image width of 3295px = 2036
-				\def\y{1343}% scalebar-y at 90% of image height of 1492px = 1343
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/comparison/MAX_mouse}};
-					% 3295.000px = 26.2282mm -> 100px = 796.000um -> 62.814px = 500um, 12.563px = 100um
-					%\draw[|-|,blue,thick] (0,746) -- (3295,746) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{26.2282}{\milli\meter} (3295px) TEMPORARY!};
-					\draw[|-|,white,shadowed] (\x,\y) -- (\x+628.14,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
-				\end{tikzpicture}%
-			}%
-			\renewcommand{\imwidth}{0.1\columnwidth}%
-			\only<2>{%
-				\centering
-				\pgfmathsetlength{\imagewidth}{\imwidth}%
-				\pgfmathsetlength{\imagescale}{\imagewidth/54}%
-				\def\x{33}% scalebar-x starting at golden ratio of image width of 54px = 33
-				\def\y{22}% scalebar-y at 90% of image height of 24px = 22
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/comparison/MAX_mouse_488umppx}};
-					% 54.000px = 26.3682mm -> 100px = 48830.000um -> 1.024px = 500um, 0.205px = 100um
-					%\draw[|-|,blue,thick] (0,12) -- (54,12) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{26.3682}{\milli\meter} (54px) TEMPORARY!};
-					\draw[|-|,white,shadowed] (\x,\y) -- (\x+102.4,\y) node [midway,above] {\shadowtext{\SI{5}{\centi\meter}}};
-					%\draw[color=red, anchor=south west] (0,24) node [fill=white, semitransparent] {Legend} node {Legend};
-				\end{tikzpicture}%
-			}%
-			\renewcommand{\imwidth}{\columnwidth}
-			\only<3>{%
-				\centering
-				\pgfmathsetlength{\imagewidth}{\imwidth}%
-				\pgfmathsetlength{\imagescale}{\imagewidth/54}%
-				\def\x{33}% scalebar-x starting at golden ratio of image width of 54px = 33
-				\def\y{22}% scalebar-y at 90% of image height of 24px = 22
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/comparison/MAX_mouse_488umppx}};
-					% 54.000px = 26.3682mm -> 100px = 48830.000um -> 1.024px = 500um, 0.205px = 100um
-					%\draw[|-|,blue,thick] (0,12) -- (54,12) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{26.3682}{\milli\meter} (54px) TEMPORARY!};
-					\draw[|-|,white,shadowed] (\x,\y) -- (\x+10.24,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
-					%\draw[color=red, anchor=south west] (0,24) node [fill=white, semitransparent] {Legend} node {Legend};
-				\end{tikzpicture}%
-			}%
-			\only<4>{%
-				\pgfmathsetlength{\imagewidth}{\imwidth}%
-				\pgfmathsetlength{\imagescale}{\imagewidth/3295}%
-				\def\x{2036}% scalebar-x starting at golden ratio of image width of 3295px = 2036
-				\def\y{1343}% scalebar-y at 90% of image height of 1492px = 1343
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/comparison/MAX_mouse}};
-					% 3295.000px = 26.2282mm -> 100px = 796.000um -> 62.814px = 500um, 12.563px = 100um
-					\draw[|-|,white,shadowed] (\x,\y) -- (\x+628.14,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
-				\end{tikzpicture}%
-			}%
-			\only<5>{%
-				\pgfmathsetlength{\imagewidth}{\imwidth}%
-				\pgfmathsetlength{\imagescale}{\imagewidth/3295}%
-				\def\x{2036}% scalebar-x starting at golden ratio of image width of 3295px = 2036
-				\def\y{1343}% scalebar-y at 90% of image height of 1492px = 1343
-				\def\mag{5}% magnification of inset
-				\def\size{100}% size of inset
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale,spy using outlines={rectangle,magnification=\mag,size=\size,connect spies}]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/comparison/MAX_mouse}};
-					\spy [red] on (352,1116) in node at (1648,746) [anchor=center];
-					% 3295.000px = 26.2282mm -> 100px = 796.000um -> 62.814px = 500um, 12.563px = 100um
-					\draw[|-|,white,shadowed] (\x,\y) -- (\x+628.14,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
-				\end{tikzpicture}%
-			}%
-			\only<6>{%
-				\pgfmathsetlength{\imagewidth}{\imwidth}%
-				\pgfmathsetlength{\imagescale}{\imagewidth/3295}%
-				\def\x{2036}% scalebar-x starting at golden ratio of image width of 3295px = 2036
-				\def\y{1343}% scalebar-y at 90% of image height of 1492px = 1343
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/comparison/MAX_mouse}};
-					% 3295.000px = 26.2282mm -> 100px = 796.000um -> 62.814px = 500um, 12.563px = 100um
-					\draw[|-|,white,shadowed] (\x,\y) -- (\x+628.14,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
-				\end{tikzpicture}%
-			}%
-		\end{column}
-	\end{columns}
-\note{The human head scan was downloaded from the \href{https://www.cancerimagingarchive.net}{[Cancer Imaging Archive}{Cancer Imaging Archive}.
-	We loaded the DICOM slices in Fiji, resliced it to show it from the side and then used to generate an MIP.
-	According to the DICOM tags, the voxel size is \SI{0.4883x0.4883x0.625}{\milli\meter\cubed}, the image size is 512\(\times\)512 pixels.
-	The mouse head is the same as shown in the early animation.
-	The files from the early animation are resized 0.25 times, so we used the original dataset (Mouse1265\_Skull\_Gaby\_TKI\_7\_96um\_Al05\_2K) for a reslice and the generation of the MIP.
-	The voxel size of the original data is 7.96 um, the image size is 3295\(\times\)1492 pixels, e.g. 26.32 mm.
-	}
-\end{frame}
-
-\subsection{Examples}
-\begin{frame}
-	\frametitle{Examples}
-	\centering
-	\only<1>{%
-		\pgfmathsetlength{\imagewidth}{0.9\linewidth}%
-		\pgfmathsetlength{\imagescale}{\imagewidth/3295}%
-		\def\x{2036}% scalebar-x starting at golden ratio of image width of 3295px = 2036
-		\def\y{1343}% scalebar-y at 90% of image height of 1492px = 1343
-		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/Mouse1265_resliced_MIP500um}};
-			% 3295.000px = 26.2282mm -> 100px = 796.000um -> 62.814px = 500um, 12.563px = 100um
-			%\draw[|-|,blue,thick] (0,746) -- (3295,746) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{26.2282}{\milli\meter} (3295px) TEMPORARY!};
-			\draw[|-|,white,shadowed] (\x,\y) -- (\x+628.14,\y) node [midway,above] {\shadowtext{\SI{5}{\milli\meter}}};
-		\end{tikzpicture}%
-	}%
-	\only<2>{%
-		\pgfmathsetlength{\imagewidth}{0.618\linewidth}%
-		\pgfmathsetlength{\imagescale}{\imagewidth/690}%
-		\def\x{426}% scalebar-x starting at golden ratio of image width of 690px = 426
-		\def\y{421}% scalebar-y at 90% of image height of 468px = 421
-		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./movies/shell/Muschel_klein0150}};
-			% 690.000px = 7.452000000000001mm -> 100px = 1080.000um -> 46.296px = 500um, 9.259px = 100um
-			%\draw[|-|,blue,thick] (0,234) -- (690,234) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{7.452000000000001}{\milli\meter} (690px) TEMPORARY!};
-			\draw[|-|,white,shadowed] (\x,\y) -- (\x+92.59,\y) node [midway,above] {\shadowtext{\SI{1}{\milli\meter}}};
-		\end{tikzpicture}%
-	}
-	\only<3>{%
-		\animategraphics[autoplay,loop,width=0.618\linewidth,every=\everyframe]{24}{./movies/shell/Muschel_klein}{0150}{431}
-	}
-	\only<4>{%
-		\pgfmathsetlength{\imagewidth}{0.42\linewidth}%
-		\pgfmathsetlength{\imagescale}{\imagewidth/1224}%
-		\def\x{756}% scalebar-x starting at golden ratio of image width of 1224px = 756
-		\def\y{1102}% scalebar-y at 90% of image height of 1224px = 1102
-		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/Toothpick_rec00000555}};
-			% 1224.000px = 2.754mm -> 100px = 225.000um -> 222.222px = 500um, 44.444px = 100um
-			%\draw[|-|,blue,thick] (0,612) -- (1224,612) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{2.754}{\milli\meter} (1224px) TEMPORARY!};
-			\draw[|-|,white,shadowed] (\x,\y) -- (\x+222.222,\y) node [midway,above] {\shadowtext{\SI{500}{\micro\meter}}};
-		\end{tikzpicture}%
-	}
-	\only<5>{%
-		\pgfmathsetlength{\imagewidth}{0.55\linewidth}%
-		\pgfmathsetlength{\imagescale}{\imagewidth/708}%
-		\def\x{438+150}% scalebar-x starting at golden ratio of image width of 708px = 438
-		\def\y{463}% scalebar-y at 90% of image height of 514px = 463
-		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/KP-TNIKWT2_rec_reslice_MIP500um}};
-			% 708.000px = 15.292800000000002mm -> 100px = 2160.000um -> 23.148px = 500um, 4.630px = 100um
-			%\draw[|-|,blue,thick] (0,257) -- (708,257) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{15.292800000000002}{\milli\meter} (708px) TEMPORARY!};
-			\draw[|-|,white,shadowed] (\x,\y) -- (\x+46.3,\y) node [midway,above] {\shadowtext{\SI{1}{\milli\meter}}};
-		\end{tikzpicture}%
-	}
-\end{frame}
-
-\subsection{A \uct scan, from start to finish}
-\begin{frame}
-	\frametitle{Projections}
-	\centering
-	% Movie frames generated with https://github.com/habi/Lecture.Microtomography/blob/master/Notebooks/FromProjectionsToReconstructions.ipynb
-	\animategraphics[autoplay,loop,height=\imheight,every=\everyframe]{24}{./movies/scan/projections/KP-TNIKWT02_240_projections_of_940_800_px_}{000}{313}
-\end{frame}
-
-%\begin{frame}
-%	\frametitle{Projections}
-%	\begin{itemize}
-%		\item A (micro-focus) x-ray source illuminates the object
-%		\item The x-rays penetrate the sample and are attenuated
-%		\item A scintillator converts the x-rays to visible light
-%		\item A (planar) x-ray detector collects (magnified) projection images.
-%		\item The projections are recorded on disk
-%	\end{itemize}
-%\end{frame}
-
-\begin{frame}
-	\frametitle{Reconstructions}
-	\centering
-	% Movie frames generated with https://github.com/habi/Lecture.Microtomography/blob/master/Notebooks/FromProjectionsToReconstructions.ipynb
-	\animategraphics[autoplay,palindrome,height=\imheight,every=\everyframe]{24}{./movies/scan/reconstructions/KP-TNIKWT02_240_reconstructions_of_556_800_px_}{000}{277}
-\end{frame}
-
-%\begin{frame}
-%	\frametitle{Reconstructions}
-%	\begin{itemize}
-%		\item Based on hundreds of angular views acquired while the object rotates, a computer synthesizes a stack of virtual cross section slices through the object.
-%		\item Radon Transformation
-%		\item Filtered back projection
-%		\item Fan beam reconstruction
-%		\item Corrections (beam hardening, etc.)
-%		\item Writing to stack
-%	\end{itemize}
-%\end{frame}
-
-\begin{frame}
-	\frametitle{Visualization}
-	\begin{tikzpicture}[remember picture,overlay]%
-	\node at (current page.center){%
-		\animategraphics[autoplay,loop,height=\paperheight,every=\everyframe]{24}{./movies/scan/visualization/lung}{000}{240}%
-		};%
-	\end{tikzpicture}%
-\end{frame}
-
-%\begin{frame}
-%	\frametitle{Visualization}
-%	\begin{itemize}
-%		\item Based on the reconstructions the computer synthesizes a three-dimensional view of the scanned sample
-%	\end{itemize}
-%\end{frame}
-
-\section{What about those teeth?}
-\begin{frame}
-	\frametitle{Tooth morphology}
-	\begin{tikzpicture}[remember picture,overlay]%
-		\node at (current page.center){%
-			\animategraphics[autoplay,loop,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image0}{000}{474}%
-			};%
-	\end{tikzpicture}%
-\end{frame}
-
 \subsection{Overview}
 \begin{frame}
 	\frametitle{Internal morphology of human teeth}
-	Collaboration with ZMK
+	Collaboration with \href{https://www.zmk.unibe.ch/}{zmk bern – Zahnmedizinische Kliniken}
 	\begin{itemize}
 		\item Numbers instead of just pretty images
 		\item Segmentation
@@ -485,14 +224,24 @@
 				\begin{itemize}
 					\item<4-> Root canal  morphology, according to~\citeauthor{Briseno-Marroquin2015}~\cite{Briseno-Marroquin2015}
 					\item<5-> Foramen geometry and size, according to~\citeauthor{Wolf2017}~\cite{Wolf2017}
-				\end{itemize}		
+				\end{itemize}
 				\item<6-> \emph{Reproducible} analysis~\cite{Haberthur2020a}\onslide<7>{, \eg you can \href{https://mybinder.org/v2/gh/habi/zmk-tooth-cohort/master?filepath=ToothAnalysis.ipynb}{click a button to double-check} or \href{https://nbviewer.jupyter.org/github/habi/zmk-tooth-cohort/blob/master/ToothAnalysis.ipynb}{view it yourself}}
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.49\linewidth}
 			\only<1>{%
 				\centering
-				\includegraphics[height=\imheight]{./images/bucketofteeth}%
+				\renewcommand{\imwidth}{0.618\linewidth}% set global image width
+				\pgfmathsetlength{\imagewidth}{\imwidth}%
+				\pgfmathsetlength{\imagescale}{\imagewidth/2716}%
+				\def\x{1678}% scalebar-x starting at golden ratio of image width of 2716px = 1678
+				\def\y{2444}% scalebar-y at 90% of image height of 2716px = 2444
+				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./images/{{bucketofteeth}}}};
+					% 2132.087px = 140.0mm -> 100px = 6566.337um -> 7.615px = 500um, 1.523px = 100um
+					%\draw[|-|,blue,thick] (299,1340) -- (2430,1406) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{140.0}{\milli\meter} (2132px) TEMPORARY!};
+					\draw[|-|,white,thick,shadowed] (\x,\y) -- (\x+761.5,\y) node [midway,above] {\shadowtext{\SI{5}{\centi\meter}}};
+				\end{tikzpicture}%
 				}%
 			\only<2>{%
 				\lstinputlisting[linerange={2-4,15-15,17-19,28-30,36-37,40-40,44-44,53-54}]{./logfiles/Tooth045.log}%
@@ -546,7 +295,7 @@
 		\end{column}	
 		\begin{column}{0.618\linewidth}
 			\centering
-			\renewcommand{\imwidth}{\columnwidth}%				
+			\renewcommand{\imwidth}{\columnwidth}%
 			\only<1>{%
 				\pgfmathsetlength{\imagewidth}{\imwidth}%
 				\pgfmathsetlength{\imagescale}{\imagewidth/2585}%
@@ -635,6 +384,7 @@
 	\end{itemize}
 \end{frame}
 
+\renewcommand{\imheight}{0.309\paperheight}%
 \begin{frame}
 	\frametitle{Thanks!}
 	\begin{columns}
@@ -647,20 +397,26 @@
 			\item zmk bern – Zahnmedizinische Kliniken
 				\begin{itemize}
 					\item Thomas G.\ Wolf, Andrea Anderegg and Michael Stiebritz
-				\end{itemize}				
+				\end{itemize}
 			\item SNF
 			\item<2-> You, for listening to me
-			\item<3-> \href{https://twitter.com/jackiantonovich/status/1195699076056178691}{What questions do you have for me} and \href{https://twitter.com/ElaineLuther/status/1195708328854331392}{what can I clarify for you}?
 		\end{itemize}
 		\end{column}
 		\begin{column}{0.5\linewidth}
 			\centering
-			\includegraphics<1>[height=\imheight]{./images/kopf_dh}
-			\includegraphics<2>[height=\imheight]{./images/kopf_rh}
-			\includegraphics<3>[height=\imheight]{./images/wolf_thomas_Web}
+			\includegraphics[height=\imheight]{./images/kopf_dh}%
+			\includegraphics[height=\imheight]{./images/kopf_rh}%
+			\includegraphics[height=\imheight]{./images/wolf_thomas_Web}
 		\end{column}
 	\end{columns}
-	\only<4>{%
+\end{frame}
+
+\begin{frame}
+	\frametitle{Questions?}
+	\begin{itemize}
+		\item \href{https://twitter.com/ElaineLuther/status/1195708328854331392}{What can I clarify for you}?
+	\end{itemize}
+	\only<2>{%
 		\begin{tikzpicture}[remember picture,overlay]%
 			\node at (current page.center){%
 				\animategraphics[autoplay,loop,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full-slices/image0}{000}{466}%
@@ -669,32 +425,15 @@
 	}%
 \end{frame}
 
-\begin{frame}
-	\frametitle{References \& \href{https://en.wikipedia.org/wiki/Colophon_(publishing)}{Colophon}}
-	\begin{columns}
-		\begin{column}{0.6\linewidth}
-			% Make the references continuously smaller :)
-			%\renewcommand*{\bibfont}{\small}
-			%\renewcommand*{\bibfont}{\footnotesize}
-			%\renewcommand*{\bibfont}{\scriptsize}
-			\renewcommand*{\bibfont}{\tiny}
-			\setbeamertemplate{bibliography item}{\insertbiblabel}
-			\printbibliography
-		\end{column}	
-		\begin{column}{0.4\linewidth}
-			\begin{itemize}
-				\item This \textsc{beamer} presentation was crafted in \LaTeX\xspace with the (slightly adapted) \href{http://intern.unibe.ch/dienstleistungen/corporate_design_und_vorlagen/praesentationen/index_ger.html}{template from \emph{Corporate Design und Vorlagen} of the University of Bern}.
-				\begin{itemize}
-					\item \href{https://github.com/habi/Talk.2021.ToScA}{Complete source available at git.io/J0tjG}
-				\end{itemize}
-				\item Did you spot an error?
-				\begin{itemize}
-					\item \href{https://github.com/habi/Talk.2021.ToScA/issues}{File an issue: git.io/J0tj7}
-					\item \href{mailto:haberthuer@ana.unibe.ch?subject=Error\%20in\%20the\%20ToScA\%20presentation\&body=https://xkcd.com/386/}{Send me an email: haberthuer@ana.unibe.ch}
-				\end{itemize}
-			\end{itemize}
-		\end{column}
-	\end{columns}
+\begin{frame}[shrink=30]
+	\frametitle{References}
+	% Make the references continuously smaller :)
+	%\renewcommand*{\bibfont}{\small}
+	%\renewcommand*{\bibfont}{\footnotesize}
+	%\renewcommand*{\bibfont}{\scriptsize}
+	\renewcommand*{\bibfont}{\tiny}
+	%\setbeamertemplate{bibliography item}{\insertbiblabel}
+	\printbibliography
 \end{frame}
 
 \end{document}
