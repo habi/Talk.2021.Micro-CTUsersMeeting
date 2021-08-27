@@ -201,7 +201,15 @@
 	\end{columns}
 \end{frame}
 
-\subsection{Overview}
+\begin{frame}
+	\frametitle{Internal morphology of human teeth}
+	\begin{tikzpicture}[remember picture,overlay]%
+		\node at (current page.center) [shift={(0,-25pt)}]{%
+			\animategraphics[autoplay,loop,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image0}{000}{474}
+			};%
+	\end{tikzpicture}%
+\end{frame}
+
 \begin{frame}
 	\frametitle{Internal morphology of human teeth}
 	Collaboration with \href{https://www.zmk.unibe.ch/}{zmk bern – Zahnmedizinische Kliniken}
@@ -276,7 +284,6 @@
 	\end{columns}
 \end{frame}
 
-\subsection{\uct imaging}
 \renewcommand{\imheight}{0.618\paperheight}
 \begin{frame}
 	\frametitle{\uct imaging}
@@ -285,7 +292,6 @@
 	\includegraphics<2>[height=\imheight]{./images/{{ScanOverviews.24}}}%
 \end{frame}	
 	
-\subsection{(hands-off) Image processing}
 \begin{frame}
 	\frametitle{Dataset cropping}
 	\begin{columns}
@@ -353,7 +359,6 @@
 		}		
 \end{frame}
 
-\section{\emph{Take home}-message}
 \begin{frame}
 	\frametitle{Conclusion}
 	\begin{itemize}
