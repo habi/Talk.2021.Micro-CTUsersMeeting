@@ -34,10 +34,10 @@
 \usepackage{tikz}
 	\usetikzlibrary{spy}
 	\tikzset{shadowed/.style={preaction={transform canvas={shift={(1pt,-1pt)}},draw=ubRed}}}
-\usepackage{shadowtext}  % for the shadowed scalebar
+\usepackage{shadowtext} % for the shadowed scalebar
 	\shadowoffset{1pt}
 	\shadowcolor{ubRed}
-\usepackage[absolute,overlay]{textpos} % for the \source* command	
+\usepackage[absolute,overlay]{textpos} % for the \source* command
 \usepackage{fontawesome5}
 \usepackage{listings}
 	\lstset{frame=single,
@@ -157,7 +157,7 @@
 	\end{frame}%
 }
 
-\begin{frame}[label=current]
+\begin{frame}
 	\frametitle{Grüessech!}
 	\begin{itemize}
 		\item David Haberthür
@@ -165,27 +165,26 @@
 			\item Physicist by trade
 			\item \href{https://boris.unibe.ch/2619/}{PhD in high resolution imaging of the lung}
 			\item Post-Doc I: \href{https://www.psi.ch/sls/tomcat/}{TOMCAT}, \href{https://www.psi.ch/sls/}{Swiss Light Source}, \href{https://www.psi.ch/}{Paul Scherrer Institute}, Switzerland
-			\item Post-Doc II: \uct-group, at the Institute of Anatomy of the University of Bern, Switzerland.
-				With Ruslan Hlushchuk, Oleksiy-Zakhar Khoma and Tim Hoessly
+			\item Post-Doc II: \uct-group, Institute of Anatomy, University of Bern, Switzerland.
+				Together with Ruslan Hlushchuk, Oleksiy-Zakhar Khoma and Tim Hoessly.
 		\end{itemize}
 	\end{itemize}
 \end{frame}
 
 \renewcommand{\imheight}{0.5\paperheight}
-\begin{frame}[label=current]
-	\frametitle{Grüessech!}		
+\begin{frame}
+	\frametitle{\uct-group}
 	\begin{columns}
-		\begin{column}{0.618\linewidth}	
+		\begin{column}{0.618\linewidth}
 			\begin{itemize}
 				\item microangioCT~\cite{Hlushchuk2018}
 				\begin{itemize}
-					\item Angiogenesis in the heart, musculature~\cite{Nording2021} and bones
-					\item Vasculature in the (mouse) brain~\cite{Hlushchuk2020}, (human) nerve scaffolds~\cite{Wuthrich2020} and (human) skin flaps~\cite{Zubler2021}
-					\item Tumor vasculature
+					\item Angiogenesis: heart, musculature~\cite{Nording2021} and bones
+					\item Vasculature: (mouse) brain~\cite{Hlushchuk2020}, (human) nerve scaffolds~\cite{Wuthrich2020}, (human) skin flaps~\cite{Zubler2021} and tumors
 				\end{itemize}
 				\item Zebrafish musculature and gills~\cite{MesserliAaldijk2020}
 				\item (Lung) tumor detection and metastasis classification~\cite{Trappetti2021}
-				\item Collaborations with museums and scientist at our institute~\cite{Halm2021} to scan a wide range of  specimens
+				\item Collaborations with museums and scientist at our institute~\cite{Halm2021} to scan a wide range of specimens
 				\item Automate \emph{all} the things!~\cite{Haberthur2020}
 			\end{itemize}
 		\end{column}
@@ -221,7 +220,8 @@
 	\end{itemize}
 \end{frame}
 
-\renewcommand{\imwidth}{\columnwidth}
+\renewcommand{\imwidth}{0.75\linewidth}
+\renewcommand{\imheight}{0.618\paperheight}
 \begin{frame}
 	\frametitle{How?}
 	\begin{columns}
@@ -231,7 +231,7 @@
 				\item<2-> \uct imaging
 				\item<4-> Morphology
 				\begin{itemize}
-					\item<4-> Root canal  morphology, according to~\citeauthor{Briseno-Marroquin2015}~\cite{Briseno-Marroquin2015}
+					\item<4-> Root canal morphology, according to~\citeauthor{Briseno-Marroquin2015}~\cite{Briseno-Marroquin2015}
 					\item<5-> Foramen geometry and size, according to~\citeauthor{Wolf2017}~\cite{Wolf2017}
 				\end{itemize}
 				\item<6-> \emph{Reproducible} analysis~\cite{Haberthur2020a}\onslide<7>{, \eg you can \href{https://mybinder.org/v2/gh/habi/zmk-tooth-cohort/master?filepath=ToothAnalysis.ipynb}{click a button to double-check} or \href{https://nbviewer.jupyter.org/github/habi/zmk-tooth-cohort/blob/master/ToothAnalysis.ipynb}{recalculate the results yourself!}}
@@ -240,7 +240,6 @@
 		\begin{column}{0.5\linewidth}
 			\only<1>{%
 				\centering
-				\renewcommand{\imwidth}{0.8\linewidth}% set global image width
 				\pgfmathsetlength{\imagewidth}{\imwidth}%
 				\pgfmathsetlength{\imagescale}{\imagewidth/2716}%
 				\def\x{1678}% scalebar-x starting at golden ratio of image width of 2716px = 1678
@@ -262,18 +261,22 @@
 					\item 13 days of \emph{continuous} \uct scanning
 					\item \SI{819}{\giga\byte} of raw data\newline\num{230648} TIFF projections
 					\item \SI{326}{\giga\byte} data as input for analysis\newline\num{282062} PNG reconstructions
-				\end{itemize}					
-					}%		
+				\end{itemize}
+					}%
+			\renewcommand{\imwidth}{\linewidth}%
 			\only<4>{%
-				\includegraphics[width=\linewidth]{./images/briseno}%
+				\centering%
+				\includegraphics[width=\imwidth]{./images/briseno}%
 				\sourcecite{Briseno-Marroquin2015}{Fig.~2}%
 				}%
 			\only<5>{%
-				\includegraphics[width=\linewidth]{./images/foramen}%
+				\centering%
+				\includegraphics[width=\imwidth]{./images/foramen}%
 				\sourcecite{Wolf2017}{Fig.~1}%
-				}%		
+				}%
 			\only<6>{%
-				\animategraphics[loop,autoplay,width=\linewidth,every=\everyframe]{24}{./movies/coder/coder-}{0}{133}%
+				\centering%
+				\animategraphics[loop,autoplay,width=\imwidth,every=\everyframe]{24}{./movies/coder/coder-}{0}{133}%
 				\source{gph.is/2nqkple}{}%
 				}%
 			\only<7>{%
@@ -290,22 +293,24 @@
 	\centering
 	\includegraphics<1>[height=\imheight]{./images/{{ScanOverviews.104}}}%
 	\includegraphics<2>[height=\imheight]{./images/{{ScanOverviews.24}}}%
-\end{frame}	
-	
+\end{frame}
+
+\renewcommand{\imwidth}{\linewidth}
 \begin{frame}
 	\frametitle{Dataset cropping}
 	\begin{columns}
-		\begin{column}{0.382\linewidth}	
+		\begin{column}{0.382\linewidth}
 			\begin{itemize}
-				\item Full datasets: \SI{326}{\giga\byte}
-				\item Cropped datasets: \SI{115}{\giga\byte}
+				\item Full datasets: \SI{326}{\giga\byte}%
+				\item Cropped datasets: \SI{115}{\giga\byte}%
 			\end{itemize}
-		\end{column}	
+		\end{column}
 		\begin{column}{0.618\linewidth}
-			\includegraphics<1>[width=\linewidth]{./images/tooth045/{{Tooth045.Cropper.Original}}}
-			\includegraphics<2>[width=\linewidth]{./images/tooth045/{{Tooth045.Cropper.Cropped}}}			
-		\end{column}	
-	\end{columns}		
+			\centering%
+			\includegraphics<1>[width=\imwidth]{./images/tooth045/{{Tooth045.Cropper.Original}}}%
+			\includegraphics<2>[width=\imwidth]{./images/tooth045/{{Tooth045.Cropper.Cropped}}}%
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}
@@ -356,7 +361,7 @@
 		}%
 	\only<3>{%
 		\animategraphics[palindrome,autoplay,height=\imheight,every=\everyframe]{24}{./movies/tooth045/edt-coronal/Tooth045_EDT_Coronal_}{123}{213}%
-		}		
+		}%
 \end{frame}
 
 \begin{frame}
