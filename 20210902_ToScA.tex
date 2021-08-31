@@ -163,9 +163,9 @@
 		\item David Haberthür
 		\begin{itemize}
 			\item Physicist by trade
-			\item \href{https://boris.unibe.ch/2619/}{PhD in high resolution imaging of the lung}
+			\item \href{https://boris.unibe.ch/2619/}{PhD in high resolution imaging of the lung}, Institute of Anatomy, University of Bern, Switzerland
 			\item Post-Doc I: \href{https://www.psi.ch/sls/tomcat/}{TOMCAT}, \href{https://www.psi.ch/sls/}{Swiss Light Source}, \href{https://www.psi.ch/}{Paul Scherrer Institute}, Switzerland
-			\item Post-Doc II: \uct-group, Institute of Anatomy, University of Bern, Switzerland.
+			\item Post-Doc II: \uct-group, Institute of Anatomy, University of Bern, Switzerland.\newline
 				Together with Ruslan Hlushchuk, Oleksiy-Zakhar Khoma and Tim Hoessly.
 		\end{itemize}
 	\end{itemize}
@@ -185,7 +185,7 @@
 				\item Zebrafish musculature and gills~\cite{MesserliAaldijk2020}
 				\item (Lung) tumor detection and metastasis classification~\cite{Trappetti2021}
 				\item Collaborations with museums and scientist at our institute~\cite{Halm2021} to scan a wide range of specimens
-				\item Automate \emph{all} the things!~\cite{Haberthur2020}
+				\item Automate \emph{all} the things!~\cite{Haberthur2021}
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.382\linewidth}
@@ -214,7 +214,7 @@
 	Collaboration with \href{https://www.zmk.unibe.ch/}{zmk bern – Zahnmedizinische Kliniken}
 	\begin{itemize}
 		\item Numbers instead of just pretty images
-		\item Segmentation
+		\item Segmentation of teeth and root canal
 		\item (Unbiased) Characterization
 		\item Reproducible and automated image analysis (\href{https://www.python.org/}{\faPython} in \href{https://jupyter.org/}{Jupyter}~\cite{Kluyver2016})
 	\end{itemize}
@@ -276,7 +276,7 @@
 				}%
 			\only<6>{%
 				\centering%
-				\animategraphics[loop,autoplay,width=\imwidth,every=\everyframe]{24}{./movies/coder/coder-}{0}{133}%
+				\animategraphics[loop,autoplay,width=\imwidth]{24}{./movies/coder/coder-}{0}{133}%
 				\source{gph.is/2nqkple}{}%
 				}%
 			\only<7>{%
@@ -302,7 +302,7 @@
 		\begin{column}{0.382\linewidth}
 			\begin{itemize}
 				\item Full datasets: \SI{326}{\giga\byte}%
-				\item Cropped datasets: \SI{115}{\giga\byte}%
+				\item<2> Cropped datasets: \SI{115}{\giga\byte}%
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.618\linewidth}
@@ -357,56 +357,50 @@
 		\sourcecite{Wolf2017}{Fig.~1}%
 		}%
 	\only<2>{%
-		\animategraphics[palindrome,autoplay,height=\imheight,every=\everyframe]{24}{./movies/tooth045/edt-axial/Tooth045_EDT_Axial_}{100}{199}%
+		\animategraphics[palindrome,autoplay,height=\imheight]{24}{./movies/tooth045/edt-axial/Tooth045_EDT_Axial_}{100}{199}%
 		}%
 	\only<3>{%
-		\animategraphics[palindrome,autoplay,height=\imheight,every=\everyframe]{24}{./movies/tooth045/edt-coronal/Tooth045_EDT_Coronal_}{123}{213}%
+		\animategraphics[palindrome,autoplay,height=\imheight]{24}{./movies/tooth045/edt-coronal/Tooth045_EDT_Coronal_}{123}{213}%
 		}%
 \end{frame}
 
 \begin{frame}
 	\frametitle{Conclusion}
 	\begin{itemize}
-		\item Efficient use of time
-		\item Reproducible analysis with \emph{free and open-source software}
+		\item Efficient use of time, \eg more teeth does not mean more (human) work
+		\item Reproducible analysis with \emph{free and open-source} software, usable by \emph{anyone}
 		\item Objective analysis, \eg no operator bias
-		\item More teeth does not mean more (analysis) work
+		\item Preparation of data for further publications 
 	\end{itemize}
 \end{frame}
 
 \renewcommand{\imheight}{0.309\paperheight}%
-\begin{frame}
-	\frametitle{Thanks!}
-	\begin{columns}
-		\begin{column}{0.5\linewidth}
-		\begin{itemize}
-			\item Topographic and clinical Anatomy
-				\begin{itemize}
-					\item Valentin Djonov, Ruslan Hlushchuk, Oleksiy-Zakhar Khoma and Jennifer Fazzari
-				\end{itemize}
-			\item zmk bern – Zahnmedizinische Kliniken
-				\begin{itemize}
-					\item Thomas G.\ Wolf, Andrea Anderegg and Michael Stiebritz
-				\end{itemize}
-			\item SNF
-			\item<2-> You, for listening to me
-		\end{itemize}
-		\end{column}
-		\begin{column}{0.5\linewidth}
-			\centering
+\begin{frame}%
+	\frametitle{Thanks!}%
+	\begin{columns}%
+		\begin{column}{0.5\linewidth}%
+		\begin{itemize}%
+			\item Topographic and clinical Anatomy%
+			\begin{itemize}%
+				\item Valentin Djonov, Ruslan Hlushchuk, Oleksiy-Zakhar Khoma and Jennifer Fazzari%
+			\end{itemize}%
+			\item zmk bern – Zahnmedizinische Kliniken%
+			\begin{itemize}%
+				\item Thomas G.\ Wolf, Andrea Anderegg and Michael Stiebritz%
+			\end{itemize}%
+			\item Swiss National Science Foundation%
+			\item<2-> You, for listening to me%
+			\item<3-> \href{https://twitter.com/ElaineLuther/status/1195708328854331392}{What can I clarify for you}?%
+		\end{itemize}%
+		\end{column}%
+		\begin{column}{0.5\linewidth}%
+			\centering%
 			\includegraphics[height=\imheight]{./images/kopf_dh}%
 			\includegraphics[height=\imheight]{./images/kopf_rh}%
-			\includegraphics[height=\imheight]{./images/wolf_thomas_Web}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Questions?}
-	\begin{itemize}
-		\item \href{https://twitter.com/ElaineLuther/status/1195708328854331392}{What can I clarify for you}?
-	\end{itemize}
-	\only<2>{%
+			\includegraphics[height=\imheight]{./images/wolf_thomas_Web}%
+		\end{column}%
+	\end{columns}%
+	\only<4>{%
 		\begin{tikzpicture}[remember picture,overlay]%
 			\node at (current page.center) [shift={(0,-25pt)}]{%
 				\animategraphics[autoplay,loop,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full-slices/image0}{000}{466}%
