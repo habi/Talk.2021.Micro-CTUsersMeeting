@@ -46,7 +46,7 @@
 \usepackage{microtype}
 
 % Some often used abbreviations/commands
-\newcommand{\everyframe}{1} % use only every nth frame for the animations
+\newcommand{\everyframe}{2} % use only every nth frame for the animations
 \newcommand{\imwidth}{\linewidth}% set global image width
 \newcommand{\imheight}{0.8\paperheight}% set global image height
 \newlength\imagewidth% needed for scalebars
@@ -329,17 +329,17 @@
 	\only<1>{%
 		\includegraphics[height=\imheight]{./images/briseno}%
 		\sourcecite{Briseno-Marroquin2015}{Fig.~2}%
-		}
+		}%
 	\only<2>{%
 		\includegraphics[height=\imheight]{./images/tooth045/{{Tooth045.ExtractedSlices}}}%
-		}
+		}%
 	\only<3>{%
 		\includegraphics[width=\linewidth]{./images/tooth045/{{Tooth045.Briseno}}}%
-		}
+		}%
 \end{frame}
 
 \begin{frame}
-	\frametitle{Extraction of pulpa}
+	\frametitle{Extraction of root canal space}
 	\begin{tikzpicture}[remember picture,overlay]%
 	\node at (current page.center) [shift={(0,-25pt)}]{%
 		\only<1>{\animategraphics[autoplay,loop,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/transparent-slices/image0}{000}{473}}%
