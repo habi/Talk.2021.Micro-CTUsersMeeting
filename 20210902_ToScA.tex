@@ -325,7 +325,8 @@
 	\begin{tikzpicture}[remember picture,overlay]%
 		\node at (current page.center) [shift={(0,-25pt)}]{%
 			\only<1>{\animategraphics[autoplay,loop,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image0}{000}{474}}%
-			\only<2>{\animategraphics[autoplay,loop,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full-slices/image0}{000}{466}}%
+			\only<2>{\includegraphics[height=\imheight]{./images/briseno}\sourcecite{Briseno-Marroquin2015}{Fig.~2}}%
+			\only<3>{\animategraphics[autoplay,loop,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full-slices/image0}{000}{466}}%
 			};%
 	\end{tikzpicture}%
 \end{frame}
@@ -334,13 +335,9 @@
 	\frametitle{Detection of enamel-dentin border}
 	\centering
 	\only<1>{%
-		\includegraphics[height=\imheight]{./images/briseno}%
-		\sourcecite{Briseno-Marroquin2015}{Fig.~2}%
-		}%
-	\only<2>{%
 		\includegraphics[height=\imheight]{./images/tooth045/{{Tooth045.ExtractedSlices}}}%
 		}%
-	\only<3>{%
+	\only<2>{%
 		\includegraphics[width=\linewidth]{./images/tooth045/{{Tooth045.Briseno}}}%
 		}%
 \end{frame}
