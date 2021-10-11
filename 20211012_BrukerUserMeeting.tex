@@ -1,6 +1,5 @@
 % Compile with:
-% latexmk -pdf -pvc -interaction=nonstopmode
-%\documentclass[aspectratio=169,draft]{beamer}
+% latexmk -pdf -pvc -interaction=nonstopmode\documentclass[aspectratio=169,draft]{beamer}
 \documentclass[aspectratio=169]{beamer}
 \usetheme{UniBern}
 
@@ -8,7 +7,7 @@
 \author{David Haberthür}
 \date{October 12, 2021 | \href{https://www.bruker.com/en/news-and-events/events/microCT_user_meeting_2021.html}{Bruker microCT User Meeting 2021}}
 
-%\includeonlyframes{current}
+\includeonlyframes{current}
 %then....
 %\begin{frame}[label=current]
 %\end{frame}
@@ -43,6 +42,10 @@
 	\lstset{frame=single,
 	basicstyle=\tiny\ttfamily
 	}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{adjustbox}
 \usepackage{microtype}
 
 % Some often used abbreviations/commands
@@ -213,6 +216,11 @@
 		\item Segmentation of teeth and root canal
 		\item (Unbiased) Characterization
 		\item Reproducible and automated image analysis (\href{https://www.python.org/}{\faPython} in \href{https://jupyter.org/}{Jupyter}~\cite{Kluyver2016})
+		\item Two publications:
+		\begin{itemize}
+			\item ~\cite{Haberthur2021}, \href{https://bmcoralhealth.biomedcentral.com/articles/10.1186/s12903-021-01551-x}{BMC Oral Health, doi.org/gjpw2d}
+			\item ~\cite{Wolf2021}, \href{http://wiki.davidhaberthuer.ch/publications\#internal_morphology_of_101_mandibular_canines_of_a_swiss-german_population_by_means_of_micro-ctan_ex_vivo_study_and_systematic_review}{Scientific Reports, accepted, small.cat/dry}
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -238,7 +246,7 @@
 				\item<2-> \uct imaging
 				\item<4-> Morphology
 				\begin{itemize}
-					\item<4-> Root canal morphology, according to~\citeauthor{Briseno-Marroquin2015}~\cite{Briseno-Marroquin2015}
+					\item<4-> Root canal configuration (RCC), according to~\citeauthor{Briseno-Marroquin2015}~\cite{Briseno-Marroquin2015}
 					\item<5-> Foramen geometry and size, according to~\citeauthor{Wolf2017}~\cite{Wolf2017}
 				\end{itemize}
 				\item<6-> \emph{Reproducible} analysis~\cite{Haberthur2020a}\onslide<7>{, \eg you can \href{https://mybinder.org/v2/gh/habi/zmk-tooth-cohort/master?filepath=ToothAnalysis.ipynb}{click a button to double-check} or \href{https://nbviewer.jupyter.org/github/habi/zmk-tooth-cohort/blob/master/ToothAnalysis.ipynb}{recalculate the results yourself!}}
@@ -274,7 +282,7 @@
 			\only<4>{%
 				\centering%
 				\includegraphics[width=\imwidth]{./images/briseno}%
-				\sourcecite{Briseno-Marroquin2015}{Fig.~2}%
+				\sourcecite{Briseño-Marroquin2015}{Fig.~2}%
 				}%
 			\only<5>{%
 				\centering%
@@ -325,7 +333,7 @@
 	\begin{tikzpicture}[remember picture,overlay]%
 		\node at (current page.center) [shift={(0,-25pt)}]{%
 			\only<1>{\animategraphics[autoplay,loop,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image0}{000}{474}}%
-			\only<2>{\includegraphics[height=\imheight]{./images/briseno}\sourcecite{Briseno-Marroquin2015}{Fig.~2}}%
+			\only<2>{\includegraphics[height=\imheight]{./images/briseno}\sourcecite{Briseño-Marroquin2015}{Fig.~2}}%
 			\only<3>{\animategraphics[autoplay,loop,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full-slices/image0}{000}{466}}%
 			};%
 	\end{tikzpicture}%
@@ -342,6 +350,57 @@
 		}%
 \end{frame}
 
+\begin{frame}[label=current, shrink=20]
+	\frametitle{Outcome root canal configuration classification}%
+	\centering%
+	\begin{table}[]%
+		\only<1>{%
+		\begin{tabular}{llcSS}%
+			\toprule%
+			\multicolumn{2}{c}{Roots} & RCC & \# & \%\\%
+			\midrule%
+			\multicolumn{2}{c}{\multirow{9}{*}{Single (N=98)}} & 1-1-1/1 & 73 & 74.5\\%
+			\multicolumn{2}{l}{}        & 1-1-1/2 & 14       & 14.3 \\%
+			\multicolumn{2}{l}{}        & 1-1-1/3 & 1        & 1.0  \\%
+			\multicolumn{2}{l}{}        & 1-1-1/4 & 2        & 2.1  \\%
+			\multicolumn{2}{l}{}        & 1-1-2/1 & 1        & 1.0  \\%
+			\multicolumn{2}{l}{}        & 1-2-1/1 & 4        & 4.1  \\%
+			\multicolumn{2}{l}{}        & 1-2-1/2 & 1        & 1.0  \\%
+			\multicolumn{2}{l}{}        & 1-2-2/2 & 1        & 1.0  \\%
+			\multicolumn{2}{l}{}        & 2-3-1/1 & 1        & 1.0  \\%
+			\midrule%
+			\multirow{4}{*}{Double (N=3)} & \multirow{2}{*}{Buccal} & 1-1-1/1 & 2            & 66.6 \\%
+			&                          & 1-2-1/1 & 1        & 33.3 \\%
+			& \multirow{2}{*}{Lingual} & 1-1-1/1 & 2        & 66.6 \\%
+			&                          & 1-1-1/2 & 1        & 33.3\\%
+			\bottomrule%
+		\end{tabular}%
+		}%
+		\only<2>{%
+		\begin{tabular}{llcSS}%
+			\toprule%
+			\multicolumn{2}{c}{Roots} & RCC & \# & \%\\%
+			\midrule%
+			\rowcolor{ubRed}\multicolumn{2}{c}{\multirow{9}{*}{Single (N=98)}} & 1-1-1/1 & 73 & 74.5\\%
+			\rowcolor{ubRed}\multicolumn{2}{l}{}        & 1-1-1/2 & 14       & 14.3 \\%
+			\multicolumn{2}{l}{}        & 1-1-1/3 & 1        & 1.0  \\%
+			\rowcolor{ubRed}\multicolumn{2}{l}{}        & 1-1-1/4 & 2        & 2.1  \\%
+			\multicolumn{2}{l}{}        & 1-1-2/1 & 1        & 1.0  \\%
+			\rowcolor{ubRed}\multicolumn{2}{l}{}        & 1-2-1/1 & 4        & 4.1  \\%
+			\multicolumn{2}{l}{}        & 1-2-1/2 & 1        & 1.0  \\%
+			\multicolumn{2}{l}{}        & 1-2-2/2 & 1        & 1.0  \\%
+			\multicolumn{2}{l}{}        & 2-3-1/1 & 1        & 1.0  \\%
+			\midrule%
+			\multirow{4}{*}{Double (N=3)} & \multirow{2}{*}{Buccal} & 1-1-1/1 & 2            & 66.6 \\%
+			&                          & 1-2-1/1 & 1        & 33.3 \\%
+			& \multirow{2}{*}{Lingual} & 1-1-1/1 & 2        & 66.6 \\%
+			&                          & 1-1-1/2 & 1        & 33.3\\%
+			\bottomrule%
+		\end{tabular}%
+		}%
+	\end{table}%
+\end{frame}%
+
 \begin{frame}
 	\frametitle{Extraction of root canal space}
 	\begin{tikzpicture}[remember picture,overlay]%
@@ -351,6 +410,20 @@
 		\only<3>{\animategraphics[autoplay,loop,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/rcs/image0}{000}{413}}%
 		};%
 	\end{tikzpicture}%
+\end{frame}
+
+\begin{frame}[label=current]
+	\frametitle{Outcome of root canal space extraction}%
+	\renewcommand{\imheight}{\paperheight}%
+	\begin{tikzpicture}[remember picture,overlay]%
+		\node at (current page.center) {%
+		\includegraphics[height=\imheight]{./images/rcs/Tooth0278}%
+		\includegraphics[height=\imheight]{./images/rcs/Tooth0352}%
+		\includegraphics[height=\imheight]{./images/rcs/Tooth0411}%
+		\includegraphics[height=\imheight]{./images/rcs/Tooth0642}%
+		\includegraphics[height=\imheight]{./images/rcs/Tooth0931}%
+			};%
+		\end{tikzpicture}%
 \end{frame}
 
 \begin{frame}
@@ -366,6 +439,25 @@
 	\only<3>{%
 		\animategraphics[palindrome,autoplay,height=\imheight]{24}{./movies/tooth045/edt-coronal/Tooth045_EDT_Coronal_}{123}{213}%
 		}%
+\end{frame}
+
+\begin{frame}[label=current]
+	\frametitle{Outcome of foramen geometry analysis}
+	\centering
+	\begin{table}[]
+		\begin{tabular}{cSSSSSSSS}
+		\toprule
+		\# of Foramina & \multicolumn{2}{c}{1} & \multicolumn{2}{c}{2} & \multicolumn{2}{c}{3} & \multicolumn{2}{l}{4} \\
+          & \#  & \%   & \#  & \%    & \# & \%    & \# & \%    \\
+\midrule
+Oval      & 72 & 91.1 & 16 & 100.0 & 1 & 100.0 & 2 & 100.0 \\
+Round     & 6  & 7.6  &    &       &   &       &   &    \\
+Irregular & 1  & 1.3  &    &       &   &       &   &    \\
+\midrule
+N         & 79 &      & 16 &       & 1 &       & 2 &\\
+\bottomrule
+\end{tabular}
+\end{table}
 \end{frame}
 
 \begin{frame}
