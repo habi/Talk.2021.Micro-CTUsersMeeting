@@ -1,5 +1,6 @@
 % Compile with:
-% latexmk -pdf -pvc -interaction=nonstopmode\documentclass[aspectratio=169,draft]{beamer}
+% latexmk -pdf -pvc -interaction=nonstopmode
+%\documentclass[aspectratio=169,draft]{beamer}
 \documentclass[aspectratio=169]{beamer}
 \usetheme{UniBern}
 
@@ -7,7 +8,7 @@
 \author{David Haberthür}
 \date{October 12, 2021 | \href{https://www.bruker.com/en/news-and-events/events/microCT_user_meeting_2021.html}{Bruker microCT User Meeting 2021}}
 
-\includeonlyframes{current}
+%\includeonlyframes{current}
 %then....
 %\begin{frame}[label=current]
 %\end{frame}
@@ -26,7 +27,8 @@
 	maxnames=1,
 	sorting=none,
 	]{biblatex}
-\addbibresource{~/P/Documents/library.bib}
+%\addbibresource{~/P/Documents/library.bib}
+\addbibresource{~/Desktop//library.bib}
 %\addbibresource{../../Documents/library.bib}
 \usepackage{ccicons}
 \usepackage{animate}
@@ -232,6 +234,11 @@
 		\item Segmentation of teeth and root canal
 		\item (Unbiased) Characterization
 		\item Reproducible and automated image analysis (\href{https://www.python.org/}{\faPython} in \href{https://jupyter.org/}{Jupyter}~\cite{Kluyver2016})
+		\item Two publications:
+		\begin{itemize}
+			\item ~\cite{Haberthur2021}, \href{https://bmcoralhealth.biomedcentral.com/articles/10.1186/s12903-021-01551-x}{BMC Oral Health, doi.org/gjpw2d}
+			\item ~\cite{Wolf2021}, \href{http://wiki.davidhaberthuer.ch/publications\#internal_morphology_of_101_mandibular_canines_of_a_swiss-german_population_by_means_of_micro-ctan_ex_vivo_study_and_systematic_review}{Scientific Reports, accepted, small.cat/dry}
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -282,7 +289,7 @@
 			\only<4>{%
 				\centering%
 				\includegraphics[width=\imwidth]{./images/briseno}%
-				\sourcecite{Briseño-Marroquin2015}{Fig.~2}%
+				\sourcecite{Briseno-Marroquin2015}{Fig.~2}%
 				}%
 			\only<5>{%
 				\centering%
@@ -333,7 +340,7 @@
 	\begin{tikzpicture}[remember picture,overlay]%
 		\node at (current page.center) [shift={(0,-25pt)}]{%
 			\only<1>{\animategraphics[autoplay,loop,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full/image0}{000}{474}}%
-			\only<2>{\includegraphics[height=\imheight]{./images/briseno}\sourcecite{Briseño-Marroquin2015}{Fig.~2}}%
+			\only<2>{\includegraphics[height=\imheight]{./images/briseno}\sourcecite{Briseno-Marroquin2015}{Fig.~2}}%
 			\only<3>{\animategraphics[autoplay,loop,width=\paperwidth,every=\everyframe]{24}{./movies/tooth045/full-slices/image0}{000}{466}}%
 			};%
 	\end{tikzpicture}%
@@ -467,7 +474,6 @@ N         & 79 &      & 16 &       & 1 &       & 2 &\\
 		\item Efficient use of time, \eg more teeth does not mean more (human) work
 		\item Reproducible analysis with \emph{free and open-source} software, usable by \emph{anyone}
 		\item Objective analysis, \eg no operator bias
-		\item Preparation of data for further publications 
 	\end{itemize}
 \end{frame}
 
@@ -493,8 +499,9 @@ N         & 79 &      & 16 &       & 1 &       & 2 &\\
 		\begin{column}{0.5\linewidth}%
 			\centering%
 			\includegraphics[height=\imheight]{./images/kopf_dh}%
-			\includegraphics[height=\imheight]{./images/kopf_rh}%
+			\includegraphics[height=\imheight]{./images/kopf_rh}\\%
 			\includegraphics[height=\imheight]{./images/wolf_thomas_Web}%
+			\includegraphics[height=\imheight]{./images/Anderegg_Andrea_web}%
 		\end{column}%
 	\end{columns}%
 	\only<4>{%
